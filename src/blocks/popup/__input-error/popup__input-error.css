@@ -1,0 +1,27 @@
+@import url(./_hide/popup__input-error_hide.css);
+@import url(./_show/popup__input-error_show.css);
+
+.popup__input-error {
+  position: absolute;
+  left: 0;
+  top: 98px;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF0000;
+}
+
+.popup__input-error:first-of-type {
+  top: 40px;
+}
+
+@media all and (max-width: 400px) {
+	.popup__input-error {
+    font-size: 10px;
+    line-height: 13px;
+    top: 38px;
+  }
+
+  .popup__input-error:last-of-type {
+    top: 84px;
+  }
+}

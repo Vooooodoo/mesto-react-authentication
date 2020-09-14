@@ -1,0 +1,21 @@
+@import url(./_valid/popup__submit_valid.css);
+@import url(./_invalid/popup__submit_invalid.css);
+
+.popup__submit {
+  width: 100%;
+  height: 50px;
+  border-radius: 2px;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.popup__submit:focus {
+  outline: none;
+}
+
+@media all and (max-width: 400px) {
+	.popup__submit {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

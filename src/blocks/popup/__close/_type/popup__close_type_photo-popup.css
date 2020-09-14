@@ -1,0 +1,11 @@
+.popup__close_type_photo-popup {
+  top: -10px;
+  right: -35px;
+}
+
+@media all and (max-width: 400px) {
+	.popup__close_type_photo-popup {
+    top: -2px;
+    right: -27px;
+  }
+}

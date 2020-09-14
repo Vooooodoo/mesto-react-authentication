@@ -1,0 +1,33 @@
+@import url(./_type/popup__close_type_form-popup.css);
+@import url(./_type/popup__close_type_photo-popup.css);
+
+.popup__close {
+  position: absolute;
+  width: 28.3px;
+  height: 28.3px;
+  padding: 0;
+  background-color: transparent;
+  background-image: url(../../../images/popup__close.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50px;
+  border: none;
+}
+
+.popup__close:hover {
+  cursor: pointer;
+  opacity: .6;
+  transition: opacity .2s linear;
+}
+
+.popup__close:focus {
+  outline: none;
+}
+
+@media all and (max-width: 400px) {
+	.popup__close {
+    width: 21.3px;
+    height: 21.3px;
+    background-size: 37px;
+  }
+}

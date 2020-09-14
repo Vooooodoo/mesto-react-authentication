@@ -1,0 +1,20 @@
+@import url(./__photo/card__photo.css);
+@import url(./__trash/card__trash.css);
+@import url(./__container/card__container.css);
+@import url(./__title/card__title.css);
+@import url(./__like/card__like.css);
+@import url(./__like-quantity/card__like-quantity.css);
+
+.card {
+  position: relative;
+}
+
+@media all and (max-width: 520px) {
+	.card {
+    margin-bottom: 20px;
+  }
+
+  .card:last-of-type {
+    margin-bottom: 0;
+  }
+}
