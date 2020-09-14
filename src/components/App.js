@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -8,6 +9,8 @@ import AddPlacePopup from './AddPlacePopup';
 import CardDeletePopup from './CardDeletePopup';
 import ImagePopup from './ImagePopup';
 import Spinner from './Spinner';
+import Register from './Register';
+import Login from './Login';
 import api from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext'; //*импортировали новый объект контекста
 import { CardsContext } from '../contexts/CardsContext';
@@ -255,6 +258,14 @@ function App() {
           card={selectedCard}
           onClose={closeAllPopups}
         />
+        <Switch>
+          <Route path="/sign-up">
+            <Register />
+          </Route>
+          <Route path="/sign-in">
+            <Login />
+          </Route>
+        </Switch>
       </CardsContext.Provider>
     </CurrentUserContext.Provider>
   );
