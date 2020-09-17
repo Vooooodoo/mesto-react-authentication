@@ -1,0 +1,15 @@
+@import url('./__title/authentication__title.css');
+@import url('./__fieldset/authentication__fieldset.css');
+@import url('./__input/authentication__input.css');
+@import url('./__submit/authentication__submit.css');
+@import url('./__text/authentication__text.css');
+@import url('./__wrapper/authentication__wrapper.css');
+@import url('./__link/authentication__link.css');
+
+.authentication {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 358px;
+  margin: 0 auto;
+}
