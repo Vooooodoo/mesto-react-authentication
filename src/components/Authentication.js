@@ -1,27 +1,13 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link  } from 'react-router-dom';
 
 function Authentication(props) {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [message, setMessage] = React.useState('');
-
-  const history = useHistory();
-
-  function handleEmailChange(evt) {
-    setEmail(evt.target.value);
-  }
-
-  function handlePasswordChange(evt) {
-    setPassword(evt.target.value);
-  }
-
   return (
-    <form className="authentication" onSubmit={props.handleSubmit}>
+    <form className="authentication" onSubmit={props.onSubmitButton}>
       <h3 className="authentication__title">{props.title}</h3>
       <fieldset className="authentication__fieldset">
-        <input className="authentication__input" type="email" onChange={handleEmailChange} placeholder="Email" minLength="2" maxLength="40" required />
-        <input className="authentication__input" type="password" onChange={handlePasswordChange} placeholder="Пароль" minLength="2" maxLength="40" required />
+        <input className="authentication__input" type="email" onChange={props.onEmailInput} placeholder="Email" minLength="2" maxLength="40" required />
+        <input className="authentication__input" type="password" onChange={props.onPasswordInput} placeholder="Пароль" minLength="2" maxLength="40" required />
       </fieldset>
       <button className="authentication__submit" type="submit">{props.btnText}</button>
       <div className="authentication__wrapper">

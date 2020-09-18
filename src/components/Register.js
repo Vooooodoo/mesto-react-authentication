@@ -1,8 +1,23 @@
 import React from 'react';
 import Authentication from './Authentication';
 import * as mestoAuth from '../mestoAuth';
+import { useHistory } from 'react-router-dom';
 
 function Register() {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [message, setMessage] = React.useState('');
+
+  const history = useHistory();
+
+  function handleEmailChange(evt) {
+    setEmail(evt.target.value);
+  }
+
+  function handlePasswordChange(evt) {
+    setPassword(evt.target.value);
+  }
+
   function handleSubmit(evt) {
     evt.preventDefault();
 
@@ -29,7 +44,9 @@ function Register() {
       subBtnText="Уже зарегистрированы?"
       linkText="Войти"
       linkRoute="/sign-in"
-      handleSubmit={handleSubmit}
+      onSubmitButton={handleSubmit}
+      onEmailInput={handleEmailChange}
+      onPasswordInput={handlePasswordChange}
     />
   );
 }

@@ -10,6 +10,10 @@ import Login from './Login';
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
 
+  function handleLogin() {
+    setLoggedIn(true);
+  }
+
   return (
     <>
       <Header />
@@ -19,7 +23,7 @@ function App() {
           <Register />
         </Route>
         <Route path="/sign-in">
-          <Login />
+          <Login onLogin={handleLogin}/>
         </Route>
         <Route>
           {<Redirect to={`/${loggedIn ? 'mesto-react' : 'sign-in'}`} />} {/* перенаправили пользователя на определённый путь в зависимости от статуса его авторизации */}
