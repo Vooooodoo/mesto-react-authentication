@@ -1,9 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import * as mestoAuth from '../mestoAuth';
 
 function Authentication(props) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [message, setMessage] = React.useState('');
+
+  const history = useHistory();
 
   function handleEmailChange(evt) {
     setEmail(evt.target.value);
@@ -16,8 +20,20 @@ function Authentication(props) {
   function handleSubmit(evt) {
     evt.preventDefault();
 
+    mestoAuth.register(email, password)
+      .then((res) => {
+        if (res) {
+          setMessage({
+            message: ''
+          });
 
-
+          history.push('/sign-in');
+        } else {
+          setMessage({
+            message: 'Что-то пошло не так!'
+          });
+        }
+      });
   }
 
   return (

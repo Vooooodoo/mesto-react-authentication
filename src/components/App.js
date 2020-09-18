@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute';
 import Header from './Header';
 import Footer from './Footer';
 import UserAccount from './UserAccount';
@@ -7,18 +8,21 @@ import Register from './Register';
 import Login from './Login';
 
 function App() {
+  const [loggedIn, setLoggedIn] = React.useState(false);
+
   return (
     <>
       <Header />
       <Switch>
-        <Route path="/mesto-react">
-          <UserAccount />
-        </Route>
+        <ProtectedRoute path="/mesto-react" loggedIn={loggedIn} component={UserAccount} /> {/* создали защищённый маршрут и передадили несколько пропсов: path, loggedIn, component */}
         <Route path="/sign-up">
           <Register />
         </Route>
         <Route path="/sign-in">
           <Login />
+        </Route>
+        <Route>
+          {<Redirect to={`/${loggedIn ? 'mesto-react' : 'sign-in'}`} />} {/* перенаправили пользователя на определённый путь в зависимости от статуса его авторизации */}
         </Route>
       </Switch>
       <Footer />
