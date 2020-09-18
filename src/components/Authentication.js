@@ -20,9 +20,9 @@ function Authentication(props) {
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    mestoAuth.register(email, password)
+    mestoAuth.register(email, password) //* аргументы с переменными состояния в которых значения инпутов формы
       .then((res) => {
-        if (res) {
+        if (res) { //* если форма отправлена успешно, перенаправить пользователя на страницу авторизации
           setMessage({
             message: ''
           });
