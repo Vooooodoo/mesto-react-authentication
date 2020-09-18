@@ -8,7 +8,7 @@ export function register (email, password) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ email, password })
-  })
+  }) //* запостили значения инпутов формы на сервер
 
   .then((res) => {
     return res.json();
@@ -20,3 +20,5 @@ export function register (email, password) {
 
   .catch((error) => console.log(error));
 };
+
+
