@@ -235,15 +235,17 @@ function UserAccount(props) {
             </div>
           }
         />
-        {isLoading ? <Spinner /> : <Main
-          onEditAvatar={handleEditAvatarClick}
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          cards={initialCards}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDeleteClick}
-        />} {/*присвоили значения пропсам компонента Main*/}
+        {isLoading ? <Spinner /> :
+          <Main
+            onEditAvatar={handleEditAvatarClick}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            cards={initialCards}
+            onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDeleteClick}
+          />
+        }
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
