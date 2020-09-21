@@ -35,6 +35,11 @@ function Register() {
             message: 'Что-то пошло не так!'
           });
         }
+      })
+
+      .catch((error) => {
+        alert('Ошибка. Запрос не выполнен.');
+        console.log('Ошибка. Запрос не выполнен:', error);
       });
   }
 
