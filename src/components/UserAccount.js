@@ -5,6 +5,7 @@ import EditProfilePopup from './EditProfilePopup';
 import AddPlacePopup from './AddPlacePopup';
 import CardDeletePopup from './CardDeletePopup';
 import ImagePopup from './ImagePopup';
+import SuccessTooltip from './SuccessTooltip';
 import Spinner from './Spinner';
 import api from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext'; //*импортировали новый объект контекста
@@ -15,6 +16,7 @@ function UserAccount() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isCardDeletePopupOpen, setIsCardDeletePopupOpen] = React.useState(false);
+  const [isSuccessTooltipOpen, setIsSuccessTooltipOpen] = React.useState(false);
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [isPopupLoading, setIsPopupLoading] = React.useState(false);
@@ -27,6 +29,7 @@ function UserAccount() {
 
   React.useEffect(() => { //*хук с побочным эффектом, который будет вызван когда компонент будет смонтирован или обновлён
     setIsLoading(true);
+    setIsSuccessTooltipOpen(true);
 
     api.get('/users/me')
       .then((result) => { //*eсли запрос выполнен успешно, сработает обработчик then с описанием последующих действий
@@ -69,7 +72,7 @@ function UserAccount() {
     return () => {
       document.removeEventListener('keydown', handleEsc); //*удалили лисенер при размонтировании компонента
     }
-  }, [isEditAvatarPopupOpen, isEditProfilePopupOpen, isAddPlacePopupOpen, isCardDeletePopupOpen]);
+  }, [isEditAvatarPopupOpen, isEditProfilePopupOpen, isAddPlacePopupOpen, isCardDeletePopupOpen, isSuccessTooltipOpen]);
 
   React.useEffect(() => {
     function handleOverlayClick(evt) {
@@ -83,7 +86,7 @@ function UserAccount() {
     return () => {
       document.removeEventListener('click', handleOverlayClick);
     }
-  }, [isEditAvatarPopupOpen, isEditProfilePopupOpen, isAddPlacePopupOpen, isCardDeletePopupOpen]);
+  }, [isEditAvatarPopupOpen, isEditProfilePopupOpen, isAddPlacePopupOpen, isCardDeletePopupOpen, isSuccessTooltipOpen]);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true); //*изменили значение переменной внутреннего состояния на true, с помощью функции-сэттера
@@ -208,6 +211,7 @@ function UserAccount() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsCardDeletePopupOpen(false);
+    setIsSuccessTooltipOpen(false);
     setSelectedCard();
   }
 
@@ -249,6 +253,10 @@ function UserAccount() {
         />
         <ImagePopup
           card={selectedCard}
+          onClose={closeAllPopups}
+        />
+        <SuccessTooltip
+          isOpen={isSuccessTooltipOpen}
           onClose={closeAllPopups}
         />
       </CardsContext.Provider>

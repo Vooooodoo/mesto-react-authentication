@@ -10,6 +10,8 @@
 @import url(./__photo-container/popup__photo-container.css);
 @import url(./__photo/popup__photo.css);
 @import url(./__photo-title/popup__photo-title.css);
+@import url(./__tooltip-logo/popup__tooltip-logo.css);
+@import url(./__tooltip-text/popup__tooltip-text.css);
 
 .popup {
   position: fixed;
