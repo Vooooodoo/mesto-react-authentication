@@ -32,6 +32,7 @@ function App() {
           if (res) {
             setUserEmail(res.data.email)
             setLoggedIn(true);
+            setIsLoading(false);
             history.push('/mesto-react');
           }
         })
