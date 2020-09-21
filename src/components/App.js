@@ -15,13 +15,13 @@ function App() {
 
   const history = useHistory();
 
-  function handleLogin() {
-    setLoggedIn(true);
-  }
-
   React.useEffect(() => {
     tokenCheck();
   });
+
+  function handleLogin() {
+    setLoggedIn(true);
+  }
 
   function tokenCheck() { //* если у пользователя есть токен в localStorage, эта функция проверит валидность токена
     const jwt = localStorage.getItem('jwt');

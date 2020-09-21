@@ -44,9 +44,8 @@ function Login(props) {
 
   return (
     <>
-      <Header children={
-          <Link to="/sign-up" className="header__link header__text">Регистрация</Link>
-        }
+      <Header
+        children={<Link to="/sign-up" className="header__link header__text">Регистрация</Link>}
       />
       <Authentication
         title="Вход"

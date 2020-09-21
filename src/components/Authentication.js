@@ -12,7 +12,7 @@ function Authentication(props) {
       <button className="authentication__submit" type="submit">{props.btnText}</button>
       <div className="authentication__wrapper">
         <p className="authentication__text">{props.subBtnText}</p>
-        <Link to={props.linkRoute} className="authentication__link">{props.linkText}</Link>
+        <Link className="authentication__link" to={props.linkRoute}>{props.linkText}</Link>
       </div>
     </form>
   );

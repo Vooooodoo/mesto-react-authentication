@@ -40,9 +40,8 @@ function Register() {
 
   return (
     <>
-      <Header children={
-          <Link to="/sign-in" className="header__link header__text">Войти</Link>
-        }
+      <Header
+        children={<Link to="/sign-in" className="header__link header__text">Войти</Link>}
       />
       <Authentication
         title="Регистрация"
