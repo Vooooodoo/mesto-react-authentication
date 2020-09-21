@@ -1,6 +1,12 @@
 @import url(./__logo/header__logo.css);
+@import url(./__text/header__text.css);
+@import url(./__button/header__button.css);
+@import url(./__link/header__link.css);
 
 .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   max-width: 882px;
   margin: 45px auto 40px;
   padding-bottom: 40px;

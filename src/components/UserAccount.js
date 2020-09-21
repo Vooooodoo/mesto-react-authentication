@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import Header from './Header';
 import Main from './Main';
 import EditAvatarPopup from './EditAvatarPopup';
 import EditProfilePopup from './EditProfilePopup';
@@ -11,7 +13,7 @@ import api from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext'; //*импортировали новый объект контекста
 import { CardsContext } from '../contexts/CardsContext';
 
-function UserAccount() {
+function UserAccount(props) {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false); //*хук, управляющий внутренним состоянием, начальное значение false
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -26,6 +28,8 @@ function UserAccount() {
 
   const [currentUser, setCurrentUser] = React.useState({});
   const [initialCards, setCards] = React.useState([]);
+
+  const history = useHistory();
 
   React.useEffect(() => { //*хук с побочным эффектом, который будет вызван когда компонент будет смонтирован или обновлён
     setIsLoading(true);
@@ -215,9 +219,22 @@ function UserAccount() {
     setSelectedCard();
   }
 
+  function signOut() {
+    localStorage.removeItem('jwt');
+    history.push('/sign-in');
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}> {/*с помощью провайдера контекста распространили значение пропса value по всему дереву дочерних компонентов*/}
       <CardsContext.Provider value={initialCards}>
+        <Header
+          children={
+            <div>
+              <p className="header__text">{props.userData}</p>
+              <button className="header__button header__text" type="button" onClick={signOut}>Выйти</button>
+            </div>
+          }
+        />
         {isLoading ? <Spinner /> : <Main
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}

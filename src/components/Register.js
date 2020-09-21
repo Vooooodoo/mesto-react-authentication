@@ -1,7 +1,8 @@
 import React from 'react';
+import { useHistory, Link } from 'react-router-dom';
+import Header from './Header';
 import Authentication from './Authentication';
 import * as mestoAuth from '../mestoAuth';
-import { useHistory } from 'react-router-dom';
 
 function Register() {
   const [email, setEmail] = React.useState('');
@@ -38,16 +39,22 @@ function Register() {
   }
 
   return (
-    <Authentication
-      title="Регистрация"
-      btnText="Зарегистрироваться"
-      subBtnText="Уже зарегистрированы?"
-      linkText="Войти"
-      linkRoute="/sign-in"
-      onSubmitButton={handleSubmit}
-      onEmailInput={handleEmailChange}
-      onPasswordInput={handlePasswordChange}
-    />
+    <>
+      <Header children={
+          <Link to="/sign-in" className="header__link header__text">Войти</Link>
+        }
+      />
+      <Authentication
+        title="Регистрация"
+        btnText="Зарегистрироваться"
+        subBtnText="Уже зарегистрированы?"
+        linkText="Войти"
+        linkRoute="/sign-in"
+        onSubmitButton={handleSubmit}
+        onEmailInput={handleEmailChange}
+        onPasswordInput={handlePasswordChange}
+      />
+    </>
   );
 }
 

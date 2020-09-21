@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
-import Header from './Header';
 import Footer from './Footer';
 import UserAccount from './UserAccount';
 import Register from './Register';
@@ -29,6 +28,7 @@ function App() {
       mestoAuth.getContent(jwt)
         .then((res) => {
           if (res) {
+            setUserEmail(res.data.email)
             setLoggedIn(true);
             history.push('/mesto-react');
           }
@@ -38,9 +38,8 @@ function App() {
 
   return (
     <>
-      <Header />
       <Switch>
-        <ProtectedRoute path="/mesto-react" loggedIn={loggedIn} component={UserAccount} /> {/* создали защищённый маршрут и передадили несколько пропсов: path, loggedIn, component */}
+        <ProtectedRoute path="/mesto-react" loggedIn={loggedIn} userData={userEmail} component={UserAccount} /> {/* создали защищённый маршрут и передадили несколько пропсов */}
         <Route path="/sign-up">
           <Register />
         </Route>
