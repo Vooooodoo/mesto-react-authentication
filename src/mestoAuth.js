@@ -44,3 +44,18 @@ export function authorize (email, password) { //* функция для авто
 
   .catch((error) => console.log(error));
 };
+
+export function getContent(token) { //* функция для проверки токенов авторизованных пользователей, которые вернулись в приложение
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  })
+
+  .then(res => res.json())
+
+  .then(data => data)
+}

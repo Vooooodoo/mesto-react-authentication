@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 function Login(props) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [message, setMessage] = React.useState('');
+  const [isErrorTooltipOpen, setIsErrorTooltipOpen] = React.useState(false);
 
   const history = useHistory();
 
@@ -28,14 +28,13 @@ function Login(props) {
     mestoAuth.authorize(email, password)
       .then((data) => {
         if (data.token) {
-          setMessage({
-            message: ''
-          });
           setEmail('');
           setPassword('');
 
           props.onLogin();
           history.push('/mesto-react');
+        } else {
+          setIsErrorTooltipOpen(true);
         }
       })
 

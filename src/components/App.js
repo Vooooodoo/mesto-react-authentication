@@ -1,17 +1,39 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Header from './Header';
 import Footer from './Footer';
 import UserAccount from './UserAccount';
 import Register from './Register';
 import Login from './Login';
+import * as mestoAuth from '../mestoAuth';
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const [userEmail, setUserEmail] = React.useState('');
+
+  const history = useHistory();
 
   function handleLogin() {
     setLoggedIn(true);
+  }
+
+  React.useEffect(() => {
+    tokenCheck();
+  }, [loggedIn]);
+
+  function tokenCheck() { //* если у пользователя есть токен в localStorage, эта функция проверит валидность токена
+    const jwt = localStorage.getItem('jwt');
+
+    if (jwt) {
+      mestoAuth.getContent(jwt)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            history.push('/mesto-react');
+          }
+        });
+    }
   }
 
   return (
