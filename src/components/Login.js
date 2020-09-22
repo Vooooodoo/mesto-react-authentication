@@ -22,7 +22,7 @@ function Login(props) {
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    if (!email || !password){
+    if (!email || !password) {
       return;
     }
 

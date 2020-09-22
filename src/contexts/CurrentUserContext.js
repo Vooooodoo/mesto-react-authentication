@@ -1,3 +1,6 @@
 import React from 'react';
 
-export const CurrentUserContext = React.createContext(); //*встроенный метод React.createContext вернул новый объект контекста
+//* встроенный метод React.createContext вернёт новый объект контекста
+const CurrentUserContext = React.createContext();
+
+export default CurrentUserContext;

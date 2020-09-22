@@ -3,7 +3,9 @@ import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main(props) {
-  const currentUser = React.useContext(CurrentUserContext); //*подписались на контекст CurrentUserContext, в переменной currentUser окажется значения пропса value провайдера контекста из App.js
+  //* подпишемся на контекст CurrentUserContext,
+  //* в переменной currentUser окажется значения пропса value провайдера контекста из App.js
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <main className="content">
@@ -23,7 +25,8 @@ function Main(props) {
       </section>
 
       <section className="cards">
-        <ul className="cards__list"> {/*правила React требуют задавать ключи при работе со списками, они нужны для корректной работы движка*/}
+        {/* осуществим рэндер начальных карточек с помощью цикла map и данных из массива cards */}
+        <ul className="cards__list"> {/* правила React требуют задавать ключи при работе со списками, они нужны для корректной работы движка */}
           {props.cards.map((card) => (
             (<Card
               card={card}
@@ -33,7 +36,7 @@ function Main(props) {
               onCardDelete={props.onCardDelete}
             />)
           ))}
-        </ul> {/*осуществили рэндер начальных карточек с помощью цикла map и данных из массива cards*/}
+        </ul>
       </section>
     </main>
   );

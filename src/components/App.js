@@ -1,5 +1,10 @@
 import React from 'react';
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import {
+  Route,
+  Switch,
+  Redirect,
+  useHistory,
+} from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Footer from './Footer';
 import UserAccount from './UserAccount';
@@ -15,22 +20,19 @@ function App() {
 
   const history = useHistory();
 
-  React.useEffect(() => {
-    tokenCheck();
-  });
-
   function handleLogin() {
     setLoggedIn(true);
   }
 
-  function tokenCheck() { //* если у пользователя есть токен в localStorage, эта функция проверит валидность токена
+  //* если у пользователя есть токен в localStorage, эта функция проверит валидность токена
+  function tokenCheck() {
     const jwt = localStorage.getItem('jwt');
 
     if (jwt) {
       mestoAuth.getContent(jwt)
         .then((res) => {
           if (res) {
-            setUserEmail(res.data.email)
+            setUserEmail(res.data.email);
             setLoggedIn(true);
             setIsLoading(false);
             history.push('/mesto-react');
@@ -43,6 +45,10 @@ function App() {
         });
     }
   }
+
+  React.useEffect(() => {
+    tokenCheck();
+  });
 
   return (
     <>

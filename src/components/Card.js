@@ -2,14 +2,19 @@ import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Card(props) {
-  const currentUser = React.useContext(CurrentUserContext); //*подписались на контекст CurrentUserContext, в переменной currentUser окажется значения пропса value провайдера контекста из App.js
+  //* подпишемся на контекст CurrentUserContext
+  //* в переменной currentUser окажется значения пропса value провайдера контекста из App.js
+  const currentUser = React.useContext(CurrentUserContext);
 
-  const isOwn = props.card.owner._id === currentUser._id; //*определяем, являемся ли мы владельцем текущей карточки
+  //* определяем, являемся ли мы владельцем текущей карточки
+  const isOwn = props.card.owner._id === currentUser._id;
+  //* если мы являемся владельцем - показать кнопку удаления карточки
   const cardDeleteButtonClassName = (
     `card__trash ${isOwn ? 'card__trash_show' : 'card__trash_hide'}`
-  ); //*если мы являемся владельцем - показать кнопку удаления карточки
+  );
 
-  const isLiked = props.card.likes.some(item => item._id === currentUser._id); //*определяем, есть ли у карточки лайк, поставленный текущим пользователем
+  //* определяем, есть ли у карточки лайк, поставленный текущим пользователем
+  const isLiked = props.card.likes.some((item) => item._id === currentUser._id);
   const cardLikeButtonClassName = (
     `card__like ${isLiked ? 'card__like_active' : 'card__like_inactive'}`
   );

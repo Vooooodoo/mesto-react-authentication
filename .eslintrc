@@ -1,0 +1,19 @@
+{
+  "plugins": [
+    "react"
+  ],
+  "extends": "airbnb-base",
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true
+  },
+  "rules": {
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "no-console": "off",
+    "linebreak-style": 0,
+    "no-underscore-dangle": "off"
+  }
+}

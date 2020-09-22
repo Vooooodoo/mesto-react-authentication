@@ -8,10 +8,12 @@ function EditProfilePopup(props) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
+  //* после загрузки текущего пользователя из API,
+  //* его данные будут использованы в управляемых компонентах
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]); //*после загрузки текущего пользователя из API его данные будут использованы в управляемых компонентах
+  }, [currentUser]);
 
   function handleNameChange(evt) {
     setName(evt.target.value);
@@ -22,12 +24,14 @@ function EditProfilePopup(props) {
   }
 
   function handleSubmit(evt) {
-    evt.preventDefault(); //*запретили браузеру переходить по адресу формы
+    evt.preventDefault(); //* запретили браузеру переходить по адресу формы
 
+    //* передадим значения управляемых компонентов во внешний обработчик handleUpdateUser,
+    //* который находится App.js
     props.onUpdateUser({
-      name: name,
+      name,
       about: description,
-    }); //*передали значения управляемых компонентов во внешний обработчик handleUpdateUser, который находится App.js
+    });
   }
 
   return (

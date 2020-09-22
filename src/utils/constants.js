@@ -1,9 +1,11 @@
-//VARIABLES
-//form-popups validation vars
-export const enableValidationArgs = {
+// VARIABLES
+// form-popups validation vars
+const enableValidationArgs = {
   inputSelector: '.popup__input-text',
   submitButtonSelector: '.popup__submit',
   invalidButtonClass: 'popup__submit_invalid',
   inputErrorClass: 'popup__input-text_type_error',
-  errorClass: 'popup__input-error_show'
+  errorClass: 'popup__input-error_show',
 };
+
+export default enableValidationArgs;

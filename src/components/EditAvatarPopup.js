@@ -2,13 +2,17 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function EditAvatarPopup(props) {
-  const inputRef = React.useRef(); //*записываем объект, возвращаемый хуком, в переменную, в которой окажется DOM-элемент с атрибутом ref
+  //* записываем объект, возвращаемый хуком, в переменную,
+  //* в которой окажется DOM-элемент с атрибутом ref
+  const inputRef = React.useRef();
 
   function handleSubmit(evt) {
     evt.preventDefault();
 
     props.onUpdateAvatar({
-      avatar: inputRef.current.value, //*получили значение инпута с помощью рефа и свойства value, передали его во внешний обработчик handleUpdateAvatar
+      //* получаем значение инпута с помощью рефа и свойства value,
+      //* затем передаем его во внешний обработчик handleUpdateAvatar
+      avatar: inputRef.current.value,
     });
   }
 
@@ -29,7 +33,7 @@ function EditAvatarPopup(props) {
       onSubmit={handleSubmit}
       isLoading={props.isLoading}
     />
-  )
+  );
 }
 
 export default EditAvatarPopup;

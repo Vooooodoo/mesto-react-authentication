@@ -10,11 +10,13 @@ import ImagePopup from './ImagePopup';
 import SuccessTooltip from './SuccessTooltip';
 import Spinner from './Spinner';
 import api from '../utils/Api';
-import { CurrentUserContext } from '../contexts/CurrentUserContext'; //*импортировали новый объект контекста
+//* импортируем новые объекты контекста
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { CardsContext } from '../contexts/CardsContext';
 
 function UserAccount(props) {
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false); //*хук, управляющий внутренним состоянием, начальное значение false
+  //* хуки, управляющие внутренним состоянием, начальное значение false
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isCardDeletePopupOpen, setIsCardDeletePopupOpen] = React.useState(false);
@@ -31,14 +33,18 @@ function UserAccount(props) {
 
   const history = useHistory();
 
-  React.useEffect(() => { //*хук с побочным эффектом, который будет вызван когда компонент будет смонтирован или обновлён
+  //* хук с побочным эффектом, который будет вызван когда компонент будет смонтирован или обновлён
+  React.useEffect(() => {
     setIsLoading(true);
     setIsSuccessTooltipOpen(true);
 
     api.get('/users/me')
-      .then((result) => { //*eсли запрос выполнен успешно, сработает обработчик then с описанием последующих действий
-        setCurrentUser(result); //*result - это объект на сервере с информацией о пользователе
-      }) //*получили с сервера информацию и передали её в соответствующую переменную состояния
+      //* eсли запрос выполнен успешно, сработает обработчик then с описанием последующих действий
+      //* как получим с сервера информацию - передадим её в соответствующую переменную состояния
+      .then((result) => {
+        //* result - это объект на сервере с информацией о пользователе
+        setCurrentUser(result);
+      })
 
       .catch((error) => {
         alert('Ошибка. Запрос не выполнен.');
@@ -50,8 +56,10 @@ function UserAccount(props) {
       });
 
     api.get('/cards')
-      .then((result) => { //*result - это полученный с сервера массив объектов с данными всех карточек
-        setCards(result.slice(0, 6)); //*урезали result до шести карточек и записали этот массив в переменную состояния cards
+      //* result - это полученный с сервера массив объектов с данными всех карточек
+      .then((result) => {
+        //* урезали result до шести карточек и записали этот массив в переменную состояния cards
+        setCards(result.slice(0, 6));
       })
 
       .catch((error) => {
@@ -62,7 +70,9 @@ function UserAccount(props) {
       .finally(() => {
         setIsLoading(false);
       });
-  }, []); //*вторым аргументом функции передали зависимость с пустым массивом, чтобы эффект был вызван всего один раз, при монтировании компонента
+  }, []);
+  //* вторым аргументом функции передали зависимость с пустым массивом,
+  //* чтобы эффект был вызван всего один раз, при монтировании компонента
 
   React.useEffect(() => {
     function handleEsc(evt) {
@@ -71,16 +81,25 @@ function UserAccount(props) {
       }
     }
 
-    document.addEventListener('keydown', handleEsc); //*добавили лисенер при монтировании компонента, стэйт которого указан в массиве зависимостей этого хука
+    //* добавим лисенер при монтировании компонента,
+    //* стэйт которого указан в массиве зависимостей этого хука
+    document.addEventListener('keydown', handleEsc);
 
     return () => {
-      document.removeEventListener('keydown', handleEsc); //*удалили лисенер при размонтировании компонента
-    }
-  }, [isEditAvatarPopupOpen, isEditProfilePopupOpen, isAddPlacePopupOpen, isCardDeletePopupOpen, isSuccessTooltipOpen]);
+      document.removeEventListener('keydown', handleEsc); //* удалили лисенер при размонтировании компонента
+    };
+  },
+  [
+    isEditAvatarPopupOpen,
+    isEditProfilePopupOpen,
+    isAddPlacePopupOpen,
+    isCardDeletePopupOpen,
+    isSuccessTooltipOpen,
+  ]);
 
   React.useEffect(() => {
     function handleOverlayClick(evt) {
-      if (evt.target.classList.contains('popup')) { //*если клик произошел по оверлею - закрыть попап
+      if (evt.target.classList.contains('popup')) { //* если клик произошел по оверлею - закрыть попап
         closeAllPopups();
       }
     }
@@ -89,11 +108,19 @@ function UserAccount(props) {
 
     return () => {
       document.removeEventListener('click', handleOverlayClick);
-    }
-  }, [isEditAvatarPopupOpen, isEditProfilePopupOpen, isAddPlacePopupOpen, isCardDeletePopupOpen, isSuccessTooltipOpen]);
+    };
+  },
+  [
+    isEditAvatarPopupOpen,
+    isEditProfilePopupOpen,
+    isAddPlacePopupOpen,
+    isCardDeletePopupOpen,
+    isSuccessTooltipOpen,
+  ]);
 
   function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(true); //*изменили значение переменной внутреннего состояния на true, с помощью функции-сэттера
+    //* изменим значение переменной внутреннего состояния на true, с помощью функции-сэттера
+    setIsEditAvatarPopupOpen(true);
   }
 
   function handleEditProfileClick() {
@@ -114,13 +141,17 @@ function UserAccount(props) {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(owner => owner._id === currentUser._id); //*проверяем, есть ли уже лайк на этой карточке
+    //* проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some((owner) => owner._id === currentUser._id);
 
     api.changeCardLikeStatus(card._id, isLiked)
-      .then((newCard) => { //*отправили запрос в API на добавление или удаление лайка в зависимости от isLiked и получили обновлённые данные карточки
-        const newCards = initialCards.map(item => item._id === card._id ? newCard : item); //*сформировали новый массив карточек на основе имеющегося, подставив в него новую карточку
+      //* отправляем запрос в API на добавление или удаление лайка в зависимости от isLiked
+      //* и получаем обновлённые данные карточки
+      .then((newCard) => {
+        //* сформируем новый массив карточек на основе имеющегося, подставив в него новую карточку
+        const newCards = initialCards.map((item) => (item._id === card._id ? newCard : item));
 
-        setCards(newCards); //*обновили переменную состояния и интерфейс изменился автоматически
+        setCards(newCards); //* обновили переменную состояния и интерфейс изменился автоматически
       })
 
       .catch((error) => {
@@ -134,7 +165,9 @@ function UserAccount(props) {
 
     api.delete(`/cards/${selectedForDeleteCard._id}`)
       .then(() => {
-        const newCards = initialCards.filter(item => item._id !== selectedForDeleteCard._id ? true : false); //*сформировали новый массив карточек на основе имеющегося, исключив из него удалённую карточку
+        //* сформируем новый массив карточек на основе имеющегося,
+        //* исключив из него удалённую карточку
+        const newCards = initialCards.filter((item) => (item._id !== selectedForDeleteCard._id ? true : false));
 
         setCards(newCards);
         closeAllPopups();
@@ -153,17 +186,18 @@ function UserAccount(props) {
   function handleUpdateUser(userInfo) {
     setIsPopupLoading(true);
 
-    api.patch('/users/me', userInfo) //*обновили на сервере информацию о пользователе, полученную из формы
-      .then((result) => { //*eсли запрос выполнен успешно, сработает обработчик then с описанием последующих действий
-        setCurrentUser(result); //*result - это объект на сервере с информацией о пользователе
+    api.patch('/users/me', userInfo) //* обновили на сервере информацию о пользователе, полученную из формы
+      //* eсли запрос выполнен успешно, сработает обработчик then с описанием последующих действий
+      .then((result) => {
+        setCurrentUser(result); //* result - это объект на сервере с информацией о пользователе
 
         closeAllPopups();
-      }) //*получили обратно информацию с сервера и добавили её на страницу
+      }) //* получили обратно информацию с сервера и добавили её на страницу
 
       .catch((error) => {
         alert('Ошибка. Запрос не выполнен.');
         console.log('Ошибка. Запрос не выполнен:', error);
-      }) //*если что-то пошло не так, — например, отвалился интернет — сработает catch
+      }) //* если что-то пошло не так, — например, отвалился интернет — сработает catch
 
       .finally(() => {
         setIsPopupLoading(false);
@@ -173,7 +207,7 @@ function UserAccount(props) {
   function handleUpdateAvatar(avatarLink) {
     setIsPopupLoading(true);
 
-    api.patch('/users/me/avatar', avatarLink) //*обновили на сервере ссылку на аватар, полученную из формы
+    api.patch('/users/me/avatar', avatarLink) //* обновили на сервере ссылку на аватар, полученную из формы
       .then((result) => {
         setCurrentUser(result);
 
@@ -193,9 +227,12 @@ function UserAccount(props) {
   function handleAddPlaceSubmit(cardInfo) {
     setIsPopupLoading(true);
 
-    api.post('/cards', cardInfo) //*добавили на сервере информацию о новой карточке, полученную из формы
-      .then((result) => { //*result - это возвращаемый с сервера объект, в котором хранится информация о новой карточке
-        setCards([result, ...initialCards]);  //*обновили стейт intialCards с помощью, расширенной за счёт добавления новой карточки, копии текущего массива
+    api.post('/cards', cardInfo) //* добавили на сервере информацию о новой карточке, полученную из формы
+      //* result - это возвращаемый с сервера объект, в котором хранится информация о новой карточке
+      .then((result) => {
+        //* обновим стейт intialCards с помощью,
+        //* расширенной за счёт добавления новой карточки, копии текущего массива
+        setCards([result, ...initialCards]);
 
         closeAllPopups();
       })
@@ -225,7 +262,7 @@ function UserAccount(props) {
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}> {/*с помощью провайдера контекста распространили значение пропса value по всему дереву дочерних компонентов*/}
+    <CurrentUserContext.Provider value={currentUser}> {/* с помощью провайдера контекста распространили значение пропса value по всему дереву дочерних компонентов */}
       <CardsContext.Provider value={initialCards}>
         <Header
           children={

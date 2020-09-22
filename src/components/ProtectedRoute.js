@@ -3,13 +3,14 @@ import { Route, Redirect } from 'react-router-dom';
 
 //* этот HOC-компонент принимает другой компонент в качестве пропса
 //* он также может взять неограниченное число пропсов и передать их новому компоненту
-function ProtectedRoute({ component: Component, ...props  }) {
+function ProtectedRoute({ component: Component, ...props }) {
   return (
     <Route>
       {
-        () => props.loggedIn ? <Component {...props} /> : <Redirect to="/sign-in" />
+        () => (props.loggedIn ? <Component {...props} /> : <Redirect to="/sign-in" />)
       }
     </Route>
-)}
+  );
+}
 
 export default ProtectedRoute;

@@ -18,7 +18,7 @@ function CardDeletPopup(props) {
       onClose={props.onClose}
       onSubmit={handleSubmit}
     />
-  )
+  );
 }
 
 export default CardDeletPopup;

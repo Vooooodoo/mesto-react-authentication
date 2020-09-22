@@ -10,7 +10,7 @@ function ErrorTooltip(props) {
       tooltipLogo={tooltipLogo}
       tooltipText="Что-то пошло не так! Попробуйте ещё раз."
     />
-  )
+  );
 }
 
 export default ErrorTooltip;

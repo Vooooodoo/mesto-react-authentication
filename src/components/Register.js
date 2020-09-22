@@ -22,17 +22,19 @@ function Register() {
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    mestoAuth.register(email, password) //* аргументы с переменными состояния в которых значения инпутов формы
+    //* в качестве аргументов передадим переменные состояния, в которых значения инпутов формы
+    mestoAuth.register(email, password)
       .then((res) => {
-        if (res) { //* если форма отправлена успешно, перенаправить пользователя на страницу авторизации
+        //* если форма отправлена успешно, перенаправить пользователя на страницу авторизации
+        if (res) {
           setMessage({
-            message: ''
+            message: '',
           });
 
           history.push('/sign-in');
         } else {
           setMessage({
-            message: 'Что-то пошло не так!'
+            message: 'Что-то пошло не так!',
           });
         }
       })

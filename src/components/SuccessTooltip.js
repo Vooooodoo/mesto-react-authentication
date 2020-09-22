@@ -10,7 +10,7 @@ function SuccessTooltip(props) {
       tooltipLogo={tooltipLogo}
       tooltipText="Вы успешно зарегистрировались!"
     />
-  )
+  );
 }
 
 export default SuccessTooltip;
