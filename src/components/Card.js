@@ -33,7 +33,7 @@ function Card(props) {
 
   return (
     <li className="card">
-      <img className="card__photo" src={props.card.link} alt={props.card.name + '.'} onClick={handleClick} />
+      <img className="card__photo" src={props.card.link} alt={`${props.card.name}.`} onClick={handleClick} />
       <button className={cardDeleteButtonClassName} type="button" aria-label="Удалить место." onClick={handleDeleteClick}></button>
       <div className="card__container">
         <h2 className="card__title">{props.card.name}</h2>
