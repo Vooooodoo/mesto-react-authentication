@@ -34,14 +34,13 @@ function Login(props) {
 
           props.onLogin();
           history.push('/');
-        } else {
-          setIsErrorTooltipOpen(true);
         }
       })
 
       .catch((error) => {
+        setIsErrorTooltipOpen(true);
         console.log('Ошибка. Запрос не выполнен:', error);
-      }); //* запускается, если пользователь не найден
+      });
   }
 
   return (

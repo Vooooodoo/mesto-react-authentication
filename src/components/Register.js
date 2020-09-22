@@ -2,14 +2,43 @@ import React from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import Header from './Header';
 import Authentication from './Authentication';
+import ErrorTooltip from './ErrorTooltip';
 import * as mestoAuth from '../utils/mestoAuth';
 
 function Register() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [message, setMessage] = React.useState('');
+  const [isErrorTooltipOpen, setIsErrorTooltipOpen] = React.useState(false);
 
   const history = useHistory();
+
+  React.useEffect(() => {
+    function handleOverlayClick(evt) {
+      if (evt.target.classList.contains('popup')) {
+        closeErrorTooltip();
+      }
+    }
+
+    document.addEventListener('click', handleOverlayClick);
+
+    return () => {
+      document.removeEventListener('click', handleOverlayClick);
+    };
+  }, [isErrorTooltipOpen]);
+
+  React.useEffect(() => {
+    function handleEsc(evt) {
+      if (evt.key === 'Escape') {
+        closeErrorTooltip();
+      }
+    }
+
+    document.addEventListener('keydown', handleEsc);
+
+    return () => {
+      document.removeEventListener('keydown', handleEsc);
+    };
+  }, [isErrorTooltipOpen]);
 
   function handleEmailChange(evt) {
     setEmail(evt.target.value);
@@ -27,21 +56,18 @@ function Register() {
       .then((res) => {
         //* если форма отправлена успешно, перенаправить пользователя на страницу авторизации
         if (res) {
-          setMessage({
-            message: '',
-          });
-
           history.push('/sign-in');
-        } else {
-          setMessage({
-            message: 'Что-то пошло не так!',
-          });
         }
       })
 
       .catch((error) => {
+        setIsErrorTooltipOpen(true);
         console.log('Ошибка. Запрос не выполнен:', error);
       });
+  }
+
+  function closeErrorTooltip() {
+    setIsErrorTooltipOpen(false);
   }
 
   return (
@@ -58,6 +84,10 @@ function Register() {
         onSubmitButton={handleSubmit}
         onEmailInput={handleEmailChange}
         onPasswordInput={handlePasswordChange}
+      />
+      <ErrorTooltip
+        isOpen={isErrorTooltipOpen}
+        onClose={closeErrorTooltip}
       />
     </>
   );
