@@ -116,6 +116,15 @@ function UserAccount(props) {
     isSuccessTooltipOpen,
   ]);
 
+  function closeAllPopups() {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsCardDeletePopupOpen(false);
+    setIsSuccessTooltipOpen(false);
+    setSelectedCard();
+  }
+
   function handleEditAvatarClick() {
     //* изменим значение переменной внутреннего состояния на true, с помощью функции-сэттера
     setIsEditAvatarPopupOpen(true);
@@ -238,15 +247,6 @@ function UserAccount(props) {
       .finally(() => {
         setIsPopupLoading(false);
       });
-  }
-
-  function closeAllPopups() {
-    setIsEditAvatarPopupOpen(false);
-    setIsEditProfilePopupOpen(false);
-    setIsAddPlacePopupOpen(false);
-    setIsCardDeletePopupOpen(false);
-    setIsSuccessTooltipOpen(false);
-    setSelectedCard();
   }
 
   function signOut() {
