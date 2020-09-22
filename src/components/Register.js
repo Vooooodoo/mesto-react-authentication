@@ -40,7 +40,6 @@ function Register() {
       })
 
       .catch((error) => {
-        alert('Ошибка. Запрос не выполнен.');
         console.log('Ошибка. Запрос не выполнен:', error);
       });
   }

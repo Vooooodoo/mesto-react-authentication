@@ -47,7 +47,6 @@ function UserAccount(props) {
       })
 
       .catch((error) => {
-        alert('Ошибка. Запрос не выполнен.');
         console.log('Ошибка. Запрос не выполнен:', error);
       })
 
@@ -63,7 +62,6 @@ function UserAccount(props) {
       })
 
       .catch((error) => {
-        alert('Ошибка. Запрос не выполнен.');
         console.log('Ошибка. Запрос не выполнен:', error);
       })
 
@@ -155,7 +153,6 @@ function UserAccount(props) {
       })
 
       .catch((error) => {
-        alert('Ошибка. Запрос не выполнен.');
         console.log('Ошибка. Запрос не выполнен:', error);
       });
   }
@@ -174,7 +171,6 @@ function UserAccount(props) {
       })
 
       .catch((error) => {
-        alert('Ошибка. Запрос не выполнен.');
         console.log('Ошибка. Запрос не выполнен:', error);
       })
 
@@ -195,7 +191,6 @@ function UserAccount(props) {
       }) //* получили обратно информацию с сервера и добавили её на страницу
 
       .catch((error) => {
-        alert('Ошибка. Запрос не выполнен.');
         console.log('Ошибка. Запрос не выполнен:', error);
       }) //* если что-то пошло не так, — например, отвалился интернет — сработает catch
 
@@ -215,7 +210,6 @@ function UserAccount(props) {
       })
 
       .catch((error) => {
-        alert('Ошибка. Запрос не выполнен.');
         console.log('Ошибка. Запрос не выполнен:', error);
       })
 
@@ -238,7 +232,6 @@ function UserAccount(props) {
       })
 
       .catch((error) => {
-        alert('Ошибка. Запрос не выполнен.');
         console.log('Ошибка. Запрос не выполнен:', error);
       })
 
