@@ -25,7 +25,7 @@ function App() {
   }
 
   //* если у пользователя есть токен в localStorage, эта функция проверит валидность токена
-  function tokenCheck() {
+  function checkToken() {
     const jwt = localStorage.getItem('jwt');
 
     if (jwt) {
@@ -35,20 +35,19 @@ function App() {
             setUserEmail(res.data.email);
             setLoggedIn(true);
             setIsLoading(false);
-            history.push('/mesto-react');
+            history.push('/');
           }
         })
 
         .catch((error) => {
-          alert('Ошибка. Запрос не выполнен.');
           console.log('Ошибка. Запрос не выполнен:', error);
         });
     }
   }
 
   React.useEffect(() => {
-    tokenCheck();
-  });
+    checkToken();
+  }, [localStorage]);
 
   return (
     <>
