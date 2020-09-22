@@ -4,7 +4,7 @@ export function register(email, password) { //* функция для регис
   return fetch(`${BASE_URL}/signup`, { //* эндпоинт на стороне сервера
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }),
@@ -22,7 +22,7 @@ export function authorize(email, password) { //* функция для авто�
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }),
@@ -45,13 +45,27 @@ export function getContent(token) {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   })
 
-    .then((res) => res.json())
+    .then((res) => {
+      try {
+        if (res.status === 200) {
+          return res.json();
+        }
+        if (res.status === 400) {
+          throw new Error('Токен не передан или передан не в том формате');
+        }
+        if (res.status === 401) {
+          throw new Error('Переданный токен некорректен');
+        }
+      } catch (error) {
+        return error;
+      }
+    })
 
     .then((data) => data);
 }

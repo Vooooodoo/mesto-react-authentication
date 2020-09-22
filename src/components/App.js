@@ -52,19 +52,20 @@ function App() {
 
   return (
     <>
-      {isLoading ? <Spinner /> :
-        <Switch>
-          <ProtectedRoute path="/mesto-react" loggedIn={loggedIn} userData={userEmail} component={UserAccount} /> {/* создали защищённый маршрут и передадили несколько пропсов */}
-          <Route path="/sign-up">
-            <Register />
-          </Route>
-          <Route path="/sign-in">
-            <Login onLogin={handleLogin}/>
-          </Route>
-          <Route>
-            {<Redirect to={`/${loggedIn ? 'mesto-react' : 'sign-in'}`} />} {/* перенаправили пользователя на определённый путь в зависимости от статуса его авторизации */}
-          </Route>
-        </Switch>
+      {isLoading
+        ? <Spinner />
+        : <Switch>
+            <ProtectedRoute exact path="/" loggedIn={loggedIn} userData={userEmail} component={UserAccount} /> {/* создали защищённый маршрут и передадили несколько пропсов */}
+            <Route path="/sign-up">
+              <Register />
+            </Route>
+            <Route path="/sign-in">
+              <Login onLogin={handleLogin}/>
+            </Route>
+            <Route>
+              {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />} {/* перенаправили пользователя на определённый путь в зависимости от статуса его авторизации */}
+            </Route>
+          </Switch>
       }
       <Footer />
     </>
