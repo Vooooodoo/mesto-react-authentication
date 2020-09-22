@@ -33,14 +33,13 @@ function Login(props) {
           setPassword('');
 
           props.onLogin();
-          history.push('/mesto-react');
+          history.push('/');
         } else {
           setIsErrorTooltipOpen(true);
         }
       })
 
       .catch((error) => {
-        alert('Ошибка. Запрос не выполнен.');
         console.log('Ошибка. Запрос не выполнен:', error);
       }); //* запускается, если пользователь не найден
   }
