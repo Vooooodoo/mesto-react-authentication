@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import Header from './Header';
 import Authentication from './Authentication';
-import * as mestoAuth from '../mestoAuth';
+import * as mestoAuth from '../utils/mestoAuth';
 
 function Login(props) {
   const [email, setEmail] = React.useState('');

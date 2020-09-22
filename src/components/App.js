@@ -11,7 +11,7 @@ import UserAccount from './UserAccount';
 import Register from './Register';
 import Login from './Login';
 import Spinner from './Spinner';
-import * as mestoAuth from '../mestoAuth';
+import * as mestoAuth from '../utils/mestoAuth';
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
