@@ -36,7 +36,6 @@ function UserAccount(props) {
   //* хук с побочным эффектом, который будет вызван когда компонент будет смонтирован или обновлён
   React.useEffect(() => {
     setIsLoading(true);
-    setIsSuccessTooltipOpen(true);
 
     api.get('/users/me')
       //* eсли запрос выполнен успешно, сработает обработчик then с описанием последующих действий
@@ -265,16 +264,17 @@ function UserAccount(props) {
             </div>
           }
         />
-        {isLoading ? <Spinner /> :
-          <Main
-            onEditAvatar={handleEditAvatarClick}
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            cards={initialCards}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDeleteClick}
-          />
+        {isLoading
+          ? <Spinner />
+          : <Main
+              onEditAvatar={handleEditAvatarClick}
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick}
+              cards={initialCards}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDeleteClick}
+            />
         }
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
