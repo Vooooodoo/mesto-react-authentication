@@ -24,7 +24,7 @@ function EditAvatarPopup(props) {
       ariaLabel="Закрыть форму обновления аватара."
       children={
         <fieldset className="popup__fieldset">
-          <input id="avatar-popup-input-link" name="link" className="popup__input-text" ref={inputRef} type="url" placeholder="Ссылка на новый аватар" required /> {/*указали элементу атрибут ref и получили прямой доступ к DOM-элементу*/}
+          <input id="avatar-popup-input-link" name="link" className="popup__input-text" ref={inputRef} type="url" placeholder="Ссылка на новый аватар" required /> {/* указали элементу атрибут ref и получили прямой доступ к DOM-элементу */}
           <span id="avatar-popup-input-link-error" className="popup__input-error popup__input-error_hide"></span>
         </fieldset>
       }
