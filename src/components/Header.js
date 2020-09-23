@@ -4,6 +4,7 @@ import headerLogo from '../images/header__logo.svg';
 
 function Header(props) {
   const { pathname } = useLocation();
+
   const linkText = `${pathname === '/sign-in' ? 'Регистрация' : 'Войти'}`;
   const linkPath = `${pathname === '/sign-in' ? '/sign-up' : '/sign-in'}`;
 
