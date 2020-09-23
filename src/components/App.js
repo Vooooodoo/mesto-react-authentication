@@ -50,167 +50,6 @@ function App() {
 
   const history = useHistory();
 
-  function handleLogin() {
-    setLoggedIn(true);
-  }
-
-  //* обработчики инпутов форм регистрации и авторизации
-  function handleEmailChange(evt) {
-    setEmail(evt.target.value);
-  }
-
-  function handlePasswordChange(evt) {
-    setPassword(evt.target.value);
-  }
-
-  function handleRegisterSubmit(evt) {
-    evt.preventDefault();
-
-    //* в качестве аргументов передадим переменные состояния, в которых значения инпутов формы
-    mestoAuth.register(email, password)
-      .then((res) => {
-        //* если форма отправлена успешно, перенаправить пользователя на страницу авторизации
-        if (res) {
-          history.push('/sign-in');
-        }
-      })
-
-      .catch((error) => {
-        console.log('Ошибка. Запрос не выполнен:', error);
-      });
-  }
-
-  function handleLoginSubmit(evt) {
-    evt.preventDefault();
-
-    if (!email || !password) {
-      return;
-    }
-
-    mestoAuth.authorize(email, password)
-      .then((data) => {
-        if (data.token) {
-          setUserEmail(email);
-          setEmail('');
-          setPassword('');
-
-          handleLogin();
-          history.push('/');
-        }
-      })
-
-      .catch((error) => {
-        console.log('Ошибка. Запрос не выполнен:', error);
-      });
-  }
-
-  //* если у пользователя есть токен в localStorage, эта функция проверит валидность токена
-  function checkToken() {
-    const jwt = localStorage.getItem('jwt');
-
-    if (jwt) {
-      mestoAuth.getContent(jwt)
-        .then((res) => {
-          if (res) {
-            setUserEmail(res.data.email);
-            setLoggedIn(true);
-            setIsLoading(false);
-            history.push('/');
-          }
-        })
-
-        .catch((error) => {
-          console.log('Ошибка. Запрос не выполнен:', error);
-        });
-    }
-  }
-
-  React.useEffect(() => {
-    checkToken();
-  }, [localStorage]);
-
-  //* хук с побочным эффектом, который будет вызван когда компонент будет смонтирован или обновлён
-  React.useEffect(() => {
-    setIsLoading(true);
-
-    api.get('/users/me')
-      //* eсли запрос выполнен успешно, сработает обработчик then с описанием последующих действий
-      //* как получим с сервера информацию - передадим её в соответствующую переменную состояния
-      .then((result) => {
-        //* result - это объект на сервере с информацией о пользователе
-        setCurrentUser(result);
-      })
-
-      .catch((error) => {
-        console.log('Ошибка. Запрос не выполнен:', error);
-      })
-
-      .finally(() => {
-        setIsLoading(false);
-      });
-
-    api.get('/cards')
-      //* result - это полученный с сервера массив объектов с данными всех карточек
-      .then((result) => {
-        //* урезали result до шести карточек и записали этот массив в переменную состояния cards
-        setCards(result.slice(0, 6));
-      })
-
-      .catch((error) => {
-        console.log('Ошибка. Запрос не выполнен:', error);
-      })
-
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
-  //* вторым аргументом функции передали зависимость с пустым массивом,
-  //* чтобы эффект был вызван всего один раз, при монтировании компонента
-
-  React.useEffect(() => {
-    function handleEsc(evt) {
-      if (evt.key === 'Escape') {
-        closeAllPopups();
-      }
-    }
-
-    //* добавим лисенер при монтировании компонента,
-    //* стэйт которого указан в массиве зависимостей этого хука
-    document.addEventListener('keydown', handleEsc);
-
-    return () => {
-      document.removeEventListener('keydown', handleEsc); //* удалили лисенер при размонтировании компонента
-    };
-  },
-  [
-    isEditAvatarPopupOpen,
-    isEditProfilePopupOpen,
-    isAddPlacePopupOpen,
-    isCardDeletePopupOpen,
-    isSuccessTooltipOpen,
-  ]);
-
-  React.useEffect(() => {
-    function handleOverlayClick(evt) {
-      if (evt.target.classList.contains('popup')) { //* если клик произошел по оверлею - закрыть попап
-        closeAllPopups();
-      }
-    }
-
-    document.addEventListener('click', handleOverlayClick);
-
-    return () => {
-      document.removeEventListener('click', handleOverlayClick);
-    };
-  },
-  [
-    isEditAvatarPopupOpen,
-    isEditProfilePopupOpen,
-    isAddPlacePopupOpen,
-    isCardDeletePopupOpen,
-    isSuccessTooltipOpen,
-  ]);
-
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -343,6 +182,167 @@ function App() {
         setIsPopupLoading(false);
       });
   }
+
+  function handleLogin() {
+    setLoggedIn(true);
+  }
+
+  //* обработчики инпутов форм регистрации и авторизации
+  function handleEmailChange(evt) {
+    setEmail(evt.target.value);
+  }
+
+  function handlePasswordChange(evt) {
+    setPassword(evt.target.value);
+  }
+
+  function handleRegisterSubmit(evt) {
+    evt.preventDefault();
+
+    //* в качестве аргументов передадим переменные состояния, в которых значения инпутов формы
+    mestoAuth.register(email, password)
+      .then((res) => {
+        //* если форма отправлена успешно, перенаправить пользователя на страницу авторизации
+        if (res) {
+          history.push('/sign-in');
+        }
+      })
+
+      .catch((error) => {
+        console.log('Ошибка. Запрос не выполнен:', error);
+      });
+  }
+
+  function handleLoginSubmit(evt) {
+    evt.preventDefault();
+
+    if (!email || !password) {
+      return;
+    }
+
+    mestoAuth.authorize(email, password)
+      .then((data) => {
+        if (data.token) {
+          setUserEmail(email);
+          setEmail('');
+          setPassword('');
+
+          handleLogin();
+          history.push('/');
+        }
+      })
+
+      .catch((error) => {
+        console.log('Ошибка. Запрос не выполнен:', error);
+      });
+  }
+
+  //* если у пользователя есть токен в localStorage, эта функция проверит валидность токена
+  function checkToken() {
+    const jwt = localStorage.getItem('jwt');
+
+    if (jwt) {
+      mestoAuth.getContent(jwt)
+        .then((res) => {
+          if (res) {
+            setUserEmail(res.data.email);
+            setLoggedIn(true);
+            setIsLoading(false);
+            history.push('/');
+          }
+        })
+
+        .catch((error) => {
+          console.log('Ошибка. Запрос не выполнен:', error);
+        });
+    }
+  }
+
+  //* хук с побочным эффектом, который будет вызван когда компонент будет смонтирован или обновлён
+  React.useEffect(() => {
+    setIsLoading(true);
+
+    api.get('/users/me')
+      //* eсли запрос выполнен успешно, сработает обработчик then с описанием последующих действий
+      //* как получим с сервера информацию - передадим её в соответствующую переменную состояния
+      .then((result) => {
+        //* result - это объект на сервере с информацией о пользователе
+        setCurrentUser(result);
+      })
+
+      .catch((error) => {
+        console.log('Ошибка. Запрос не выполнен:', error);
+      })
+
+      .finally(() => {
+        setIsLoading(false);
+      });
+
+    api.get('/cards')
+      //* result - это полученный с сервера массив объектов с данными всех карточек
+      .then((result) => {
+        //* урезали result до шести карточек и записали этот массив в переменную состояния cards
+        setCards(result.slice(0, 6));
+      })
+
+      .catch((error) => {
+        console.log('Ошибка. Запрос не выполнен:', error);
+      })
+
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+  //* вторым аргументом функции передали зависимость с пустым массивом,
+  //* чтобы эффект был вызван всего один раз, при монтировании компонента
+
+  React.useEffect(() => {
+    function handleEsc(evt) {
+      if (evt.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+
+    //* добавим лисенер при монтировании компонента,
+    //* стэйт которого указан в массиве зависимостей этого хука
+    document.addEventListener('keydown', handleEsc);
+
+    return () => {
+      document.removeEventListener('keydown', handleEsc); //* удалили лисенер при размонтировании компонента
+    };
+  },
+  [
+    isEditAvatarPopupOpen,
+    isEditProfilePopupOpen,
+    isAddPlacePopupOpen,
+    isCardDeletePopupOpen,
+    isSuccessTooltipOpen,
+  ]);
+
+  React.useEffect(() => {
+    function handleOverlayClick(evt) {
+      if (evt.target.classList.contains('popup')) { //* если клик произошел по оверлею - закрыть попап
+        closeAllPopups();
+      }
+    }
+
+    document.addEventListener('click', handleOverlayClick);
+
+    return () => {
+      document.removeEventListener('click', handleOverlayClick);
+    };
+  },
+  [
+    isEditAvatarPopupOpen,
+    isEditProfilePopupOpen,
+    isAddPlacePopupOpen,
+    isCardDeletePopupOpen,
+    isSuccessTooltipOpen,
+  ]);
+
+  React.useEffect(() => {
+    checkToken();
+  }, [localStorage]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}> {/* с помощью провайдера контекста распространили значение пропса value по всему дереву дочерних компонентов */}

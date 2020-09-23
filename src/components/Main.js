@@ -26,6 +26,7 @@ function Main(props) {
           </div>
         }
       />
+
       <main className="content">
         <section className="profile">
           <div className="profile__container" onClick={props.onEditAvatar}>
