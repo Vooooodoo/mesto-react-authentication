@@ -343,10 +343,12 @@ function App() {
 
   React.useEffect(() => {
     checkToken();
-  }, [localStorage]);
+  });
 
   return (
-    <CurrentUserContext.Provider value={currentUser}> {/* с помощью провайдера контекста распространили значение пропса value по всему дереву дочерних компонентов */}
+    <CurrentUserContext.Provider value={currentUser}>
+    {/* с помощью провайдера контекста распространили значение пропса value
+      по всему дереву дочерних компонентов */}
       <CardsContext.Provider value={initialCards}>
         <Switch>
           {isLoading
