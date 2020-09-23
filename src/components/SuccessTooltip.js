@@ -8,7 +8,7 @@ function SuccessTooltip(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       tooltipLogo={tooltipLogo}
-      tooltipText="Вы успешно зарегистрировались!"
+      tooltipText={props.tooltipText}
     />
   );
 }

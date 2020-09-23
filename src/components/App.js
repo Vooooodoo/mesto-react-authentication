@@ -35,6 +35,8 @@ function App() {
   const [isSuccessTooltipOpen, setIsSuccessTooltipOpen] = React.useState(false);
   const [isErrorTooltipOpen, setIsErrorTooltipOpen] = React.useState(false);
 
+  const [tooltipText, setTooltiptext] = React.useState('');
+
   const [isLoading, setIsLoading] = React.useState(false);
   const [isPopupLoading, setIsPopupLoading] = React.useState(false);
 
@@ -213,6 +215,8 @@ function App() {
         //* если форма отправлена успешно, перенаправить пользователя на страницу авторизации
         if (res) {
           history.push('/sign-in');
+          setTooltiptext('Вы успешно зарегистрировались!');
+          setIsSuccessTooltipOpen(true);
         }
       })
 
@@ -238,6 +242,8 @@ function App() {
 
           handleLogin();
           history.push('/');
+          setTooltiptext('Вход успешно выполнен!');
+          setIsSuccessTooltipOpen(true);
         }
       })
 
@@ -434,6 +440,7 @@ function App() {
         <SuccessTooltip
           isOpen={isSuccessTooltipOpen}
           onClose={closeAllPopups}
+          tooltipText={tooltipText}
         />
         <ErrorTooltip
           isOpen={isErrorTooltipOpen}
