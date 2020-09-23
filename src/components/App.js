@@ -106,34 +106,39 @@ function App() {
 
   return (
     <>
-      {isLoading
-        ? <Spinner />
-        : <Switch>
-            <ProtectedRoute exact path="/" loggedIn={loggedIn} userData={userEmail} component={UserAccount} /> {/* создали защищённый маршрут и передадили несколько пропсов */}
+      <Switch>
+        {isLoading
+          ? <Spinner />
+          : <ProtectedRoute
+              exact path="/"
+              component={UserAccount}
+              loggedIn={loggedIn}
+              userData={userEmail}
+            />
+        }
 
-            <Route path="/sign-up">
-              <Header children={<Link to="/sign-in" className="header__link header__text">Войти</Link>}/>
-              <Register
-                onSubmitButton={handleRegisterSubmit}
-                onEmailInput={handleEmailChange}
-                onPasswordInput={handlePasswordChange}
-              />
-            </Route>
+        <Route path="/sign-up">
+          <Header children={<Link to="/sign-in" className="header__link header__text">Войти</Link>}/>
+          <Register
+            onSubmitButton={handleRegisterSubmit}
+            onEmailInput={handleEmailChange}
+            onPasswordInput={handlePasswordChange}
+          />
+        </Route>
 
-            <Route path="/sign-in">
-              <Header children={<Link to="/sign-up" className="header__link header__text">Регистрация</Link>}/>
-              <Login
-                onSubmitButton={handleLoginSubmit}
-                onEmailInput={handleEmailChange}
-                onPasswordInput={handlePasswordChange}
-              />
-            </Route>
+        <Route path="/sign-in">
+          <Header children={<Link to="/sign-up" className="header__link header__text">Регистрация</Link>}/>
+          <Login
+            onSubmitButton={handleLoginSubmit}
+            onEmailInput={handleEmailChange}
+            onPasswordInput={handlePasswordChange}
+          />
+        </Route>
 
-            <Route>
-              {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />} {/* перенаправили пользователя на определённый путь в зависимости от статуса его авторизации */}
-            </Route>
-          </Switch>
-      }
+        <Route>
+          {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />} {/* перенаправили пользователя на определённый путь в зависимости от статуса его авторизации */}
+        </Route>
+      </Switch>
       <Footer />
     </>
   );
