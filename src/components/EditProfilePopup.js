@@ -27,7 +27,7 @@ function EditProfilePopup(props) {
     evt.preventDefault(); //* запретили браузеру переходить по адресу формы
 
     //* передадим значения управляемых компонентов во внешний обработчик handleUpdateUser,
-    //* который находится App.js
+    //* который находится в App.js
     props.onUpdateUser({
       name,
       about: description,

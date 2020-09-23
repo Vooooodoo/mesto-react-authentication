@@ -11,7 +11,7 @@ function EditAvatarPopup(props) {
 
     props.onUpdateAvatar({
       //* получаем значение инпута с помощью рефа и свойства value,
-      //* затем передаем его во внешний обработчик handleUpdateAvatar
+      //* затем передаем его во внешний обработчик handleUpdateAvatar в App.js
       avatar: inputRef.current.value,
     });
   }

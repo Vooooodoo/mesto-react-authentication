@@ -35,8 +35,6 @@ function App() {
   const [isSuccessTooltipOpen, setIsSuccessTooltipOpen] = React.useState(false);
   const [isErrorTooltipOpen, setIsErrorTooltipOpen] = React.useState(false);
 
-  const [tooltipText, setTooltiptext] = React.useState('');
-
   const [isLoading, setIsLoading] = React.useState(false);
   const [isPopupLoading, setIsPopupLoading] = React.useState(false);
 
@@ -48,6 +46,8 @@ function App() {
 
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [userEmail, setUserEmail] = React.useState('');
+
+  const [tooltipText, setTooltiptext] = React.useState('');
 
   const history = useHistory();
 
@@ -100,7 +100,7 @@ function App() {
       .catch((error) => {
         setIsErrorTooltipOpen(true);
         console.log('Ошибка. Запрос не выполнен:', error);
-      });
+      }); //* если что-то пошло не так, — например, отвалился интернет — сработает catch
   }
 
   function handleCardDelete() {
@@ -140,7 +140,7 @@ function App() {
       .catch((error) => {
         setIsErrorTooltipOpen(true);
         console.log('Ошибка. Запрос не выполнен:', error);
-      }) //* если что-то пошло не так, — например, отвалился интернет — сработает catch
+      })
 
       .finally(() => {
         setIsPopupLoading(false);
