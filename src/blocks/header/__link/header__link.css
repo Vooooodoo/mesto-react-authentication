@@ -4,5 +4,6 @@
 }
 
 .header__link:hover {
-  text-decoration: underline;
+  opacity: .6;
+  transition: opacity .2s linear;
 }

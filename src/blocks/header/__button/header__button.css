@@ -8,5 +8,6 @@
 
 .header__button:hover {
   cursor: pointer;
-  text-decoration: underline;
+  opacity: .6;
+  transition: opacity .2s linear;
 }
