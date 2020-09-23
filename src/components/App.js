@@ -1,3 +1,6 @@
+//! пофиксить баг, когда заходишь в аккаунт не отображается сразу мыло юзера,
+//! только после обновления страницы
+
 import React from 'react';
 import {
   Route,
@@ -50,12 +53,30 @@ function App() {
     }
   }
 
+  //* обработчики инпутов форм регистрации и авторизации
   function handleEmailChange(evt) {
     setEmail(evt.target.value);
   }
 
   function handlePasswordChange(evt) {
     setPassword(evt.target.value);
+  }
+
+  function handleRegisterSubmit(evt) {
+    evt.preventDefault();
+
+    //* в качестве аргументов передадим переменные состояния, в которых значения инпутов формы
+    mestoAuth.register(email, password)
+      .then((res) => {
+        //* если форма отправлена успешно, перенаправить пользователя на страницу авторизации
+        if (res) {
+          history.push('/sign-in');
+        }
+      })
+
+      .catch((error) => {
+        console.log('Ошибка. Запрос не выполнен:', error);
+      });
   }
 
   function handleLoginSubmit(evt) {
@@ -68,6 +89,7 @@ function App() {
     mestoAuth.authorize(email, password)
       .then((data) => {
         if (data.token) {
+          setUserEmail(email);
           setEmail('');
           setPassword('');
 
@@ -91,9 +113,16 @@ function App() {
         ? <Spinner />
         : <Switch>
             <ProtectedRoute exact path="/" loggedIn={loggedIn} userData={userEmail} component={UserAccount} /> {/* создали защищённый маршрут и передадили несколько пропсов */}
+
             <Route path="/sign-up">
-              <Register />
+              <Header children={<Link to="/sign-in" className="header__link header__text">Войти</Link>}/>
+              <Register
+                onSubmitButton={handleRegisterSubmit}
+                onEmailInput={handleEmailChange}
+                onPasswordInput={handlePasswordChange}
+              />
             </Route>
+
             <Route path="/sign-in">
               <Header children={<Link to="/sign-up" className="header__link header__text">Регистрация</Link>}/>
               <Login
@@ -102,6 +131,7 @@ function App() {
                 onPasswordInput={handlePasswordChange}
               />
             </Route>
+
             <Route>
               {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />} {/* перенаправили пользователя на определённый путь в зависимости от статуса его авторизации */}
             </Route>
