@@ -11,7 +11,7 @@
 .spinner {
   position: fixed;
   left: calc(50% - 15vmin);
-  top: 50%;
+  top: 35%;
   width: 200px;
   height: 200px;
   border: 4px solid #240229;
