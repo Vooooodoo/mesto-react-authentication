@@ -7,6 +7,7 @@ import {
   Link,
 } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
+import Header from './Header';
 import Main from './Main';
 import EditAvatarPopup from './EditAvatarPopup';
 import EditProfilePopup from './EditProfilePopup';
@@ -14,10 +15,10 @@ import AddPlacePopup from './AddPlacePopup';
 import CardDeletePopup from './CardDeletePopup';
 import ImagePopup from './ImagePopup';
 import SuccessTooltip from './SuccessTooltip';
-import Header from './Header';
-import Footer from './Footer';
+import ErrorTooltip from './ErrorTooltip';
 import Register from './Register';
 import Login from './Login';
+import Footer from './Footer';
 import Spinner from './Spinner';
 import api from '../utils/Api';
 import * as mestoAuth from '../utils/mestoAuth';
@@ -32,6 +33,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isCardDeletePopupOpen, setIsCardDeletePopupOpen] = React.useState(false);
   const [isSuccessTooltipOpen, setIsSuccessTooltipOpen] = React.useState(false);
+  const [isErrorTooltipOpen, setIsErrorTooltipOpen] = React.useState(false);
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [isPopupLoading, setIsPopupLoading] = React.useState(false);
@@ -56,6 +58,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsCardDeletePopupOpen(false);
     setIsSuccessTooltipOpen(false);
+    setIsErrorTooltipOpen(false);
     setSelectedCard();
   }
 
@@ -96,6 +99,7 @@ function App() {
       })
 
       .catch((error) => {
+        setIsErrorTooltipOpen(true);
         console.log('Ошибка. Запрос не выполнен:', error);
       });
   }
@@ -114,6 +118,7 @@ function App() {
       })
 
       .catch((error) => {
+        setIsErrorTooltipOpen(true);
         console.log('Ошибка. Запрос не выполнен:', error);
       })
 
@@ -134,6 +139,7 @@ function App() {
       }) //* получили обратно информацию с сервера и добавили её на страницу
 
       .catch((error) => {
+        setIsErrorTooltipOpen(true);
         console.log('Ошибка. Запрос не выполнен:', error);
       }) //* если что-то пошло не так, — например, отвалился интернет — сработает catch
 
@@ -153,6 +159,7 @@ function App() {
       })
 
       .catch((error) => {
+        setIsErrorTooltipOpen(true);
         console.log('Ошибка. Запрос не выполнен:', error);
       })
 
@@ -175,6 +182,7 @@ function App() {
       })
 
       .catch((error) => {
+        setIsErrorTooltipOpen(true);
         console.log('Ошибка. Запрос не выполнен:', error);
       })
 
@@ -209,6 +217,7 @@ function App() {
       })
 
       .catch((error) => {
+        setIsErrorTooltipOpen(true);
         console.log('Ошибка. Запрос не выполнен:', error);
       });
   }
@@ -233,6 +242,7 @@ function App() {
       })
 
       .catch((error) => {
+        setIsErrorTooltipOpen(true);
         console.log('Ошибка. Запрос не выполнен:', error);
       });
   }
@@ -247,12 +257,12 @@ function App() {
           if (res) {
             setUserEmail(res.data.email);
             setLoggedIn(true);
-            setIsLoading(false);
             history.push('/');
           }
         })
 
         .catch((error) => {
+          setIsErrorTooltipOpen(true);
           console.log('Ошибка. Запрос не выполнен:', error);
         });
     }
@@ -271,6 +281,7 @@ function App() {
       })
 
       .catch((error) => {
+        setIsErrorTooltipOpen(true);
         console.log('Ошибка. Запрос не выполнен:', error);
       })
 
@@ -286,6 +297,7 @@ function App() {
       })
 
       .catch((error) => {
+        setIsErrorTooltipOpen(true);
         console.log('Ошибка. Запрос не выполнен:', error);
       })
 
@@ -419,6 +431,10 @@ function App() {
         />
         <SuccessTooltip
           isOpen={isSuccessTooltipOpen}
+          onClose={closeAllPopups}
+        />
+        <ErrorTooltip
+          isOpen={isErrorTooltipOpen}
           onClose={closeAllPopups}
         />
       </CardsContext.Provider>
