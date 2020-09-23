@@ -1,6 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import Header from './Header';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -9,24 +7,8 @@ function Main(props) {
   //* в переменной currentUser окажется значения пропса value провайдера контекста из App.js
   const currentUser = React.useContext(CurrentUserContext);
 
-  const history = useHistory();
-
-  function signOut() {
-    localStorage.removeItem('jwt');
-    history.push('/sign-in');
-  }
-
   return (
     <>
-      <Header
-        children={
-          <div>
-            <p className="header__text">{props.userData}</p>
-            <button className="header__button header__text" type="button" onClick={signOut}>Выйти</button>
-          </div>
-        }
-      />
-
       <main className="content">
         <section className="profile">
           <div className="profile__container" onClick={props.onEditAvatar}>

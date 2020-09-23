@@ -255,6 +255,12 @@ function App() {
     }
   }
 
+  function handleSignOut() {
+    setLoggedIn(false);
+    localStorage.removeItem('jwt');
+    history.push('/sign-in');
+  }
+
   //* хук с побочным эффектом, который будет вызван когда компонент будет смонтирован или обновлён
   React.useEffect(() => {
     setIsLoading(true);
@@ -350,6 +356,11 @@ function App() {
     {/* с помощью провайдера контекста распространили значение пропса value
       по всему дереву дочерних компонентов */}
       <CardsContext.Provider value={initialCards}>
+        <Header
+          loggedIn={loggedIn}
+          userData={userEmail}
+          onEscapeButton={handleSignOut}
+        />
         <Switch>
           {isLoading
             ? <Spinner />
@@ -357,7 +368,6 @@ function App() {
                 exact path="/"
                 component={Main}
                 loggedIn={loggedIn}
-                userData={userEmail}
                 cards={initialCards}
                 onEditAvatar={handleEditAvatarClick}
                 onEditProfile={handleEditProfileClick}
@@ -369,14 +379,12 @@ function App() {
           }
 
           <Route path="/sign-up">
-            <Header children={<Link to="/sign-in" className="header__link header__text">Войти</Link>}/>
             <Register
               onSubmitButton={handleRegisterSubmit}
             />
           </Route>
 
           <Route path="/sign-in">
-            <Header children={<Link to="/sign-up" className="header__link header__text">Регистрация</Link>}/>
             <Login
               onSubmitButton={handleLoginSubmit}
             />
