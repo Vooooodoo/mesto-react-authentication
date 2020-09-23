@@ -242,7 +242,7 @@ function App() {
 
           handleLogin();
           history.push('/');
-          setTooltiptext('Вход успешно выполнен!');
+          setTooltiptext('Авторизация прошла успешно!');
           setIsSuccessTooltipOpen(true);
         }
       })
