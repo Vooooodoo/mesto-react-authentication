@@ -4,7 +4,6 @@ import {
   Switch,
   Redirect,
   useHistory,
-  Link,
 } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Header from './Header';
@@ -353,18 +352,19 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-    {/* с помощью провайдера контекста распространили значение пропса value
-      по всему дереву дочерних компонентов */}
+    {/* с помощью провайдера контекста распространили значение пропса value */}
+    {/* по всему дереву дочерних компонентов */}
       <CardsContext.Provider value={initialCards}>
-        <Header
-          loggedIn={loggedIn}
-          userData={userEmail}
-          onEscapeButton={handleSignOut}
-        />
-        <Switch>
-          {isLoading
-            ? <Spinner />
-            : <ProtectedRoute
+      {isLoading
+        ? <Spinner />
+        : <>
+            <Header
+              loggedIn={loggedIn}
+              userData={userEmail}
+              onEscapeButton={handleSignOut}
+            />
+            <Switch>
+              <ProtectedRoute
                 exact path="/"
                 component={Main}
                 loggedIn={loggedIn}
@@ -376,63 +376,61 @@ function App() {
                 onCardLike={handleCardLike}
                 onCardDelete={handleCardDeleteClick}
               />
-          }
 
-          <Route path="/sign-up">
-            <Register
-              onSubmitButton={handleRegisterSubmit}
+              <Route path="/sign-up">
+                <Register onSubmitButton={handleRegisterSubmit}/>
+              </Route>
+
+              <Route path="/sign-in">
+                <Login onSubmitButton={handleLoginSubmit}/>
+              </Route>
+
+              <Route>
+                {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}
+                {/* перенаправили пользователя на путь, в зависимости от статуса его авторизации */}
+              </Route>
+            </Switch>
+            <Footer />
+
+            <EditAvatarPopup
+              isOpen={isEditAvatarPopupOpen}
+              onClose={closeAllPopups}
+              onUpdateAvatar={handleUpdateAvatar}
+              isLoading={isPopupLoading}
             />
-          </Route>
-
-          <Route path="/sign-in">
-            <Login
-              onSubmitButton={handleLoginSubmit}
+            <EditProfilePopup
+              isOpen={isEditProfilePopupOpen}
+              onClose={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
+              isLoading={isPopupLoading}
             />
-          </Route>
-
-          <Route>
-            {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />} {/* перенаправили пользователя на определённый путь в зависимости от статуса его авторизации */}
-          </Route>
-        </Switch>
-        <Footer />
-
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          onUpdateAvatar={handleUpdateAvatar}
-          isLoading={isPopupLoading}
-        />
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
-          isLoading={isPopupLoading}
-        />
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          onAddPlace={handleAddPlaceSubmit}
-          isLoading={isPopupLoading}
-        />
-        <CardDeletePopup
-          isOpen={isCardDeletePopupOpen}
-          onClose={closeAllPopups}
-          onCardDelete={handleCardDelete}
-          isLoading={isPopupLoading}
-        />
-        <ImagePopup
-          card={selectedCard}
-          onClose={closeAllPopups}
-        />
-        <SuccessTooltip
-          isOpen={isSuccessTooltipOpen}
-          onClose={closeAllPopups}
-          tooltipText={tooltipText}
-        />
-        <ErrorTooltip
-          isOpen={isErrorTooltipOpen}
-          onClose={closeAllPopups}
-        />
+            <AddPlacePopup
+              isOpen={isAddPlacePopupOpen}
+              onClose={closeAllPopups}
+              onAddPlace={handleAddPlaceSubmit}
+              isLoading={isPopupLoading}
+            />
+            <CardDeletePopup
+              isOpen={isCardDeletePopupOpen}
+              onClose={closeAllPopups}
+              onCardDelete={handleCardDelete}
+              isLoading={isPopupLoading}
+            />
+            <ImagePopup
+              card={selectedCard}
+              onClose={closeAllPopups}
+            />
+            <SuccessTooltip
+              isOpen={isSuccessTooltipOpen}
+              onClose={closeAllPopups}
+              tooltipText={tooltipText}
+            />
+            <ErrorTooltip
+              isOpen={isErrorTooltipOpen}
+              onClose={closeAllPopups}
+            />
+        </>
+      }
       </CardsContext.Provider>
     </CurrentUserContext.Provider>
   );
