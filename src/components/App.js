@@ -24,10 +24,6 @@ function App() {
     setLoggedIn(true);
   }
 
-  function handleError() {
-    setLoggedIn(true);
-  }
-
   //* если у пользователя есть токен в localStorage, эта функция проверит валидность токена
   function checkToken() {
     const jwt = localStorage.getItem('jwt');
@@ -60,7 +56,7 @@ function App() {
         : <Switch>
             <ProtectedRoute exact path="/" loggedIn={loggedIn} userData={userEmail} component={UserAccount} /> {/* создали защищённый маршрут и передадили несколько пропсов */}
             <Route path="/sign-up">
-              <Register onError={handleError}/>
+              <Register />
             </Route>
             <Route path="/sign-in">
               <Login onLogin={handleLogin}/>
