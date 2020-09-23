@@ -4,8 +4,10 @@ import {
   Switch,
   Redirect,
   useHistory,
+  Link,
 } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
+import Header from './Header';
 import Footer from './Footer';
 import UserAccount from './UserAccount';
 import Register from './Register';
@@ -17,6 +19,9 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [userEmail, setUserEmail] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
+
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
   const history = useHistory();
 
@@ -45,6 +50,37 @@ function App() {
     }
   }
 
+  function handleEmailChange(evt) {
+    setEmail(evt.target.value);
+  }
+
+  function handlePasswordChange(evt) {
+    setPassword(evt.target.value);
+  }
+
+  function handleLoginSubmit(evt) {
+    evt.preventDefault();
+
+    if (!email || !password) {
+      return;
+    }
+
+    mestoAuth.authorize(email, password)
+      .then((data) => {
+        if (data.token) {
+          setEmail('');
+          setPassword('');
+
+          handleLogin();
+          history.push('/');
+        }
+      })
+
+      .catch((error) => {
+        console.log('Ошибка. Запрос не выполнен:', error);
+      });
+  }
+
   React.useEffect(() => {
     checkToken();
   }, [localStorage]);
@@ -59,7 +95,12 @@ function App() {
               <Register />
             </Route>
             <Route path="/sign-in">
-              <Login onLogin={handleLogin}/>
+              <Header children={<Link to="/sign-up" className="header__link header__text">Регистрация</Link>}/>
+              <Login
+                onSubmitButton={handleLoginSubmit}
+                onEmailInput={handleEmailChange}
+                onPasswordInput={handlePasswordChange}
+              />
             </Route>
             <Route>
               {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />} {/* перенаправили пользователя на определённый путь в зависимости от статуса его авторизации */}
