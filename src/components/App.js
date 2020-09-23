@@ -329,6 +329,7 @@ function App() {
     isAddPlacePopupOpen,
     isCardDeletePopupOpen,
     isSuccessTooltipOpen,
+    isErrorTooltipOpen,
   ]);
 
   React.useEffect(() => {
@@ -350,6 +351,7 @@ function App() {
     isAddPlacePopupOpen,
     isCardDeletePopupOpen,
     isSuccessTooltipOpen,
+    isErrorTooltipOpen,
   ]);
 
   React.useEffect(() => {
