@@ -2,6 +2,23 @@ import React from 'react';
 import Authentication from './Authentication';
 
 function Register(props) {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  function handleEmailChange(evt) {
+    setEmail(evt.target.value);
+  }
+
+  function handlePasswordChange(evt) {
+    setPassword(evt.target.value);
+  }
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+
+    props.onSubmitButton(email, password);
+  }
+
   return (
     <Authentication
       title="Регистрация"
@@ -9,9 +26,9 @@ function Register(props) {
       subBtnText="Уже зарегистрированы?"
       linkText="Войти"
       linkRoute="/sign-in"
-      onSubmitButton={props.onSubmitButton}
-      onEmailInput={props.onEmailInput}
-      onPasswordInput={props.onPasswordInput}
+      onSubmitButton={handleSubmit}
+      onEmailInput={handleEmailChange}
+      onPasswordInput={handlePasswordChange}
     />
   );
 }

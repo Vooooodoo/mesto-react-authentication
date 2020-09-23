@@ -49,9 +49,6 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [userEmail, setUserEmail] = React.useState('');
 
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
   const history = useHistory();
 
   function closeAllPopups() {
@@ -197,18 +194,7 @@ function App() {
     setLoggedIn(true);
   }
 
-  //* обработчики инпутов форм регистрации и авторизации
-  function handleEmailChange(evt) {
-    setEmail(evt.target.value);
-  }
-
-  function handlePasswordChange(evt) {
-    setPassword(evt.target.value);
-  }
-
-  function handleRegisterSubmit(evt) {
-    evt.preventDefault();
-
+  function handleRegisterSubmit(email, password) {
     //* в качестве аргументов передадим переменные состояния, в которых значения инпутов формы
     mestoAuth.register(email, password)
       .then((res) => {
@@ -226,9 +212,7 @@ function App() {
       });
   }
 
-  function handleLoginSubmit(evt) {
-    evt.preventDefault();
-
+  function handleLoginSubmit(email, password) {
     if (!email || !password) {
       return;
     }
@@ -237,9 +221,6 @@ function App() {
       .then((data) => {
         if (data.token) {
           setUserEmail(email);
-          setEmail('');
-          setPassword('');
-
           handleLogin();
           history.push('/');
           setTooltiptext('Авторизация прошла успешно!');
@@ -389,8 +370,6 @@ function App() {
             <Header children={<Link to="/sign-in" className="header__link header__text">Войти</Link>}/>
             <Register
               onSubmitButton={handleRegisterSubmit}
-              onEmailInput={handleEmailChange}
-              onPasswordInput={handlePasswordChange}
             />
           </Route>
 
@@ -398,8 +377,6 @@ function App() {
             <Header children={<Link to="/sign-up" className="header__link header__text">Регистрация</Link>}/>
             <Login
               onSubmitButton={handleLoginSubmit}
-              onEmailInput={handleEmailChange}
-              onPasswordInput={handlePasswordChange}
             />
           </Route>
 
