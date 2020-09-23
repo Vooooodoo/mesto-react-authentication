@@ -1,6 +1,3 @@
-//! пофиксить баг, когда заходишь в аккаунт не отображается сразу мыло юзера,
-//! только после обновления страницы
-
 import React from 'react';
 import {
   Route,
@@ -30,27 +27,6 @@ function App() {
 
   function handleLogin() {
     setLoggedIn(true);
-  }
-
-  //* если у пользователя есть токен в localStorage, эта функция проверит валидность токена
-  function checkToken() {
-    const jwt = localStorage.getItem('jwt');
-
-    if (jwt) {
-      mestoAuth.getContent(jwt)
-        .then((res) => {
-          if (res) {
-            setUserEmail(res.data.email);
-            setLoggedIn(true);
-            setIsLoading(false);
-            history.push('/');
-          }
-        })
-
-        .catch((error) => {
-          console.log('Ошибка. Запрос не выполнен:', error);
-        });
-    }
   }
 
   //* обработчики инпутов форм регистрации и авторизации
@@ -101,6 +77,27 @@ function App() {
       .catch((error) => {
         console.log('Ошибка. Запрос не выполнен:', error);
       });
+  }
+
+  //* если у пользователя есть токен в localStorage, эта функция проверит валидность токена
+  function checkToken() {
+    const jwt = localStorage.getItem('jwt');
+
+    if (jwt) {
+      mestoAuth.getContent(jwt)
+        .then((res) => {
+          if (res) {
+            setUserEmail(res.data.email);
+            setLoggedIn(true);
+            setIsLoading(false);
+            history.push('/');
+          }
+        })
+
+        .catch((error) => {
+          console.log('Ошибка. Запрос не выполнен:', error);
+        });
+    }
   }
 
   React.useEffect(() => {
