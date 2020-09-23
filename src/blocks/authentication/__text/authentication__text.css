@@ -4,3 +4,10 @@
   margin: 0;
   margin-right: 4px;
 }
+
+@media all and (max-width: 375px) {
+	.authentication__text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

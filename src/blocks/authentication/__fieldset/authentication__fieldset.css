@@ -4,3 +4,9 @@
   border: none;
   width: 100%;
 }
+
+@media all and (max-width: 375px) {
+	.authentication__fieldset {
+    margin-bottom: 173px;
+  }
+}

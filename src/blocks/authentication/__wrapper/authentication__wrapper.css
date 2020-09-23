@@ -1,4 +1,10 @@
 .authentication__wrapper {
   display: flex;
-  margin: 15px 0 60px;
+  margin: 15px 0 42px;
+}
+
+@media all and (max-width: 375px) {
+	.authentication__wrapper {
+    margin-bottom: 26px;
+  }
 }

@@ -14,3 +14,11 @@
   background-color: rgba(255, 255, 255, .8);
   transition: .2s linear;
 }
+
+@media all and (max-width: 375px) {
+	.authentication__submit {
+    font-size: 16px;
+    line-height: 19px;
+    height: 46px;
+  }
+}

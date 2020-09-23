@@ -10,7 +10,7 @@
 
 .spinner {
   position: fixed;
-  left: calc(50% - 10vmin);
+  left: calc(50% - 15vmin);
   top: 50%;
   width: 200px;
   height: 200px;
@@ -54,4 +54,34 @@
   filter: blur(20px);
   z-index: -1;
   animation: animate 0.5s linear infinite;
+}
+
+@media all and (max-width: 600px) {
+	.spinner {
+    left: calc(50% - 20vmin);
+  }
+}
+
+@media all and (max-width: 499px) {
+	.spinner {
+    left: calc(50% - 22vmin);
+  }
+}
+
+@media all and (max-width: 425px) {
+	.spinner {
+    left: calc(50% - 24vmin);
+  }
+}
+
+@media all and (max-width: 375px) {
+	.spinner {
+    left: calc(50% - 27vmin);
+  }
+}
+
+@media all and (max-width: 320px) {
+	.spinner {
+    left: calc(50% - 32vmin);
+  }
 }

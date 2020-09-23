@@ -6,3 +6,11 @@
   text-align: center;
   margin: 0 0 24px;
 }
+
+@media all and (max-width: 375px) {
+	.popup__tooltip-text {
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 20px;
+  }
+}

@@ -9,3 +9,10 @@
   opacity: .6;
   transition: opacity .2s linear;
 }
+
+@media all and (max-width: 375px) {
+	.authentication__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
