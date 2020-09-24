@@ -196,7 +196,7 @@ function App() {
     mestoAuth.register(email, password)
       .then((res) => {
         //* если форма отправлена успешно, перенаправить пользователя на страницу авторизации
-        if (res) {
+        if (res.data) {
           setUserEmail(email);
           history.push('/sign-in');
           setIsSuccessTooltipOpen(true);
