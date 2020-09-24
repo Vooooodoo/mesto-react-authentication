@@ -19,7 +19,7 @@ import Register from './Register';
 import Login from './Login';
 import Footer from './Footer';
 import Spinner from './Spinner';
-import api from '../utils/Api';
+import api from '../utils/api';
 import * as mestoAuth from '../utils/mestoAuth';
 //* импортируем новые объекты контекста
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
