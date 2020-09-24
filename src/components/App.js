@@ -45,6 +45,7 @@ function App() {
 
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [userEmail, setUserEmail] = React.useState('');
+  const [isNewUserRegistered, setIsNewUserRegistered] = React.useState(false);
 
   const [tooltipText, setTooltiptext] = React.useState('');
 
@@ -204,8 +205,7 @@ function App() {
         //* если форма отправлена успешно, перенаправить пользователя на страницу авторизации
         if (res) {
           history.push('/sign-in');
-          setTooltiptext('Вы успешно зарегистрировались!');
-          setIsSuccessTooltipOpen(true);
+          setIsNewUserRegistered(true);
         }
       })
 
@@ -222,12 +222,16 @@ function App() {
 
     mestoAuth.authorize(email, password)
       .then((data) => {
-        if (data.token) {
+        if (data.token && isNewUserRegistered) {
           setUserEmail(email);
           handleLogin();
           history.push('/');
-          setTooltiptext('Авторизация прошла успешно!');
           setIsSuccessTooltipOpen(true);
+          setIsNewUserRegistered(false);
+        } else {
+          setUserEmail(email);
+          handleLogin();
+          history.push('/');
         }
       })
 
@@ -261,6 +265,7 @@ function App() {
   function handleSignOut() {
     setLoggedIn(false);
     localStorage.removeItem('jwt');
+    setUserEmail('');
     history.push('/sign-in');
   }
 
@@ -427,7 +432,6 @@ function App() {
             <SuccessTooltip
               isOpen={isSuccessTooltipOpen}
               onClose={closeAllPopups}
-              tooltipText={tooltipText}
             />
             <ErrorTooltip
               isOpen={isErrorTooltipOpen}
