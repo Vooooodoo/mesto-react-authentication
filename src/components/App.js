@@ -200,6 +200,8 @@ function App() {
           setUserEmail(email);
           history.push('/sign-in');
           setIsSuccessTooltipOpen(true);
+        } else {
+          setIsErrorTooltipOpen(true);
         }
       })
 
