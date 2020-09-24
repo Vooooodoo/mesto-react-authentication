@@ -45,9 +45,6 @@ function App() {
 
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [userEmail, setUserEmail] = React.useState('');
-  const [isNewUserRegistered, setIsNewUserRegistered] = React.useState(false);
-
-  const [tooltipText, setTooltiptext] = React.useState('');
 
   const history = useHistory();
 
@@ -204,8 +201,8 @@ function App() {
       .then((res) => {
         //* если форма отправлена успешно, перенаправить пользователя на страницу авторизации
         if (res) {
+          setUserEmail(email);
           history.push('/sign-in');
-          setIsNewUserRegistered(true);
         }
       })
 
@@ -216,18 +213,13 @@ function App() {
   }
 
   function handleLoginSubmit(email, password) {
-    if (!email || !password) {
-      return;
-    }
-
     mestoAuth.authorize(email, password)
       .then((data) => {
-        if (data.token && isNewUserRegistered) {
+        if (data.token && userEmail === email) {
           setUserEmail(email);
           handleLogin();
           history.push('/');
           setIsSuccessTooltipOpen(true);
-          setIsNewUserRegistered(false);
         } else {
           setUserEmail(email);
           handleLogin();
