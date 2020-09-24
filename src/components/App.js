@@ -197,7 +197,6 @@ function App() {
       .then((res) => {
         //* если форма отправлена успешно, перенаправить пользователя на страницу авторизации
         if (res.data) {
-          setUserEmail(email);
           history.push('/sign-in');
           setIsSuccessTooltipOpen(true);
         } else {
@@ -234,14 +233,17 @@ function App() {
     if (jwt) {
       mestoAuth.checkToken(jwt)
         .then((res) => {
-          setUserEmail(res.data.email);
-          setLoggedIn(true);
-          history.push('/');
+          if (res) {
+            setUserEmail(res.data.email);
+            setLoggedIn(true);
+            history.push('/');
+          } else {
+            localStorage.removeItem('jwt');
+          }
         })
 
         .catch((error) => {
           setIsErrorTooltipOpen(true);
-          localStorage.removeItem('jwt');
           console.log('Ошибка. Запрос не выполнен:', error);
         });
     }
