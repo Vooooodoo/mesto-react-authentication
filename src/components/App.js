@@ -217,6 +217,8 @@ function App() {
           setUserEmail(email);
           setLoggedIn(true);
           history.push('/');
+        } else {
+          setIsErrorTooltipOpen(true);
         }
       })
 
