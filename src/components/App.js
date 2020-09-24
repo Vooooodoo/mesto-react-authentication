@@ -117,6 +117,7 @@ function App() {
 
       .catch((error) => {
         setIsErrorTooltipOpen(true);
+        setIsCardDeletePopupOpen(false);
         console.log('Ошибка. Запрос не выполнен:', error);
       })
 
@@ -138,6 +139,7 @@ function App() {
 
       .catch((error) => {
         setIsErrorTooltipOpen(true);
+        setIsEditProfilePopupOpen(false);
         console.log('Ошибка. Запрос не выполнен:', error);
       })
 
@@ -158,6 +160,7 @@ function App() {
 
       .catch((error) => {
         setIsErrorTooltipOpen(true);
+        setIsEditAvatarPopupOpen(false);
         console.log('Ошибка. Запрос не выполнен:', error);
       })
 
@@ -181,6 +184,7 @@ function App() {
 
       .catch((error) => {
         setIsErrorTooltipOpen(true);
+        setIsAddPlacePopupOpen(false);
         console.log('Ошибка. Запрос не выполнен:', error);
       })
 
@@ -348,7 +352,7 @@ function App() {
 
   React.useEffect(() => {
     checkToken();
-  });
+  }, [history]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
