@@ -215,6 +215,7 @@ function App() {
   function handleLoginSubmit(email, password) {
     mestoAuth.authorize(email, password)
       .then((data) => {
+        //* если зарегестировался новый пользователь - встретить его попапом успешной регистрации
         if (data.token && userEmail === email) {
           setUserEmail(email);
           handleLogin();
