@@ -350,7 +350,7 @@ function App() {
             <Header
               loggedIn={loggedIn}
               userData={userEmail}
-              onEscapeButton={handleSignOut}
+              onSignOut={handleSignOut}
             />
             <Switch>
               <ProtectedRoute
