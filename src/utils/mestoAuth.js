@@ -41,7 +41,7 @@ export function authorize(email, password) { //* функция для авто�
 }
 
 //* функция для проверки токенов авторизованных пользователей, которые вернулись в приложение
-export function getContent(token) {
+export function checkToken(token) {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {

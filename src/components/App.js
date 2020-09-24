@@ -239,17 +239,16 @@ function App() {
     const jwt = localStorage.getItem('jwt');
 
     if (jwt) {
-      mestoAuth.getContent(jwt)
+      mestoAuth.checkToken(jwt)
         .then((res) => {
-          if (res) {
-            setUserEmail(res.data.email);
-            setLoggedIn(true);
-            history.push('/');
-          }
+          setUserEmail(res.data.email);
+          setLoggedIn(true);
+          history.push('/');
         })
 
         .catch((error) => {
           setIsErrorTooltipOpen(true);
+          localStorage.removeItem('jwt');
           console.log('Ошибка. Запрос не выполнен:', error);
         });
     }
