@@ -191,10 +191,6 @@ function App() {
       });
   }
 
-  function handleLogin() {
-    setLoggedIn(true);
-  }
-
   function handleRegisterSubmit(email, password) {
     //* в качестве аргументов передадим переменные состояния, в которых значения инпутов формы
     mestoAuth.register(email, password)
@@ -203,6 +199,7 @@ function App() {
         if (res) {
           setUserEmail(email);
           history.push('/sign-in');
+          setIsSuccessTooltipOpen(true);
         }
       })
 
@@ -215,15 +212,9 @@ function App() {
   function handleLoginSubmit(email, password) {
     mestoAuth.authorize(email, password)
       .then((data) => {
-        //* если зарегестировался новый пользователь - встретить его попапом успешной регистрации
-        if (data.token && userEmail === email) {
+        if (data.token) {
           setUserEmail(email);
-          handleLogin();
-          history.push('/');
-          setIsSuccessTooltipOpen(true);
-        } else {
-          setUserEmail(email);
-          handleLogin();
+          setLoggedIn(true);
           history.push('/');
         }
       })
