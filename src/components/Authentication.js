@@ -7,7 +7,7 @@ function Authentication(props) {
       <h3 className="authentication__title">{props.title}</h3>
       <fieldset className="authentication__fieldset">
         <input className="authentication__input" type="email" onChange={props.onEmailInput} placeholder="Email" minLength="2" maxLength="40" required />
-        <input className="authentication__input" type="password" onChange={props.onPasswordInput} placeholder="Пароль" minLength="2" maxLength="40" required />
+        <input className="authentication__input" type="password" onChange={props.onPasswordInput} placeholder="Пароль" minLength="8" maxLength="40" required />
       </fieldset>
       <button className="authentication__submit" type="submit">{props.btnText}</button>
       <div className="authentication__wrapper">
